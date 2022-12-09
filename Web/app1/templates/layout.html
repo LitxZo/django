@@ -19,55 +19,76 @@
     <script src="{% static '/layui/layui.js' %}"></script>
 
     <style>
-      body {
-          margin: 0;
-          height: 100%;
-      }
+        #map{
+          width:100%%;
+          height:500px;
+          margin:0;
+          overflow:hidden;
 
-      html {
-          height: 100%;
-      }
+        }
+        body {
+            margin: 0;
+            height: 100%;
+        }
 
-      .pg-body {
-          height: calc(100vh - 60px);
-      }
+        html {
+            height: 100%;
+        }
 
-      .left-menu {
-          float: left;
-          width: 200px;
-          height: 100%;
-          overflow: auto;
-      }
+        .pg-body {
+            height: calc(100vh - 60px);
+        }
 
-      .layui-header a {
-          text-decoration: none;
-      }
+        .left-menu {
+            float: left;
+            width: 200px;
+            height: 100%;
+            overflow: auto;
+        }
 
-      .layui-header {
-          background-color: #393d49;
-      }
+        .layui-header a {
+            text-decoration: none;
+        }
 
-      .pg-body, .left-menu, .left-tree {
-      {#height: 100%;#} background-color: #272a33;
-      }
+        .layui-header {
+            background-color: #393d49;
+        }
 
-      .pg-body > .right-body {
-          box-sizing: border-box;
-          background-color: #f2f2f2;
-          float: left;
-          height: 100%;
-          width: calc(100% - 200px);
-      {#position: absolute;#} border: 1px solid #ddd;
+        .pg-body, .left-menu, .left-tree {
+        {#height: 100%;#} background-color: #272a33;
+        }
+
+        .pg-body > .right-body {
+            box-sizing: border-box;
+            background-color: #f2f2f2;
+            float: left;
+            height: 100%;
+            width: calc(100% - 200px);
+        {#position: absolute;#} border: 1px solid #ddd;
+            font-size: 14px;
+            overflow: auto;
+        }
+
+        .layui-card-one {
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px solid #ddd;
+            padding: 0 17px;
+            background-color: white;
+        }
+            .info {
+          z-index: 999;
+          width: 600px;
+          min-width: 22rem;
+          padding: .75rem 1.25rem;
+          margin:auto;
+          position:relative;left:450px;
+          top: 1rem;
+          background-color: #fff;
+          border-radius: .25rem;
           font-size: 14px;
-          overflow: auto;
-      }
-
-      .layui-card-one {
-          height: 50px;
-          line-height: 50px;
-          border-bottom: 1px solid #ddd;
-          padding: 0 17px;
-          background-color: white;
+          color: #666;
+          box-shadow: 0 2px 6px 0 rgba(27, 142, 236, 0.5);
       }
     </style>
     <!--某些单独的页面需要用自己的css-->
@@ -80,30 +101,23 @@
         <span
           style="
             color: #fff;
-            font-size: 14px;
+            font-size: 20px;
             line-height: 60px;
-            margin-left: 60px;
+            margin-left: 20px;
           "
           >智慧村落管理系统</span
         >
       </div>
       <!-- 头部区域 -->
-      {% comment %}
+
       <ul class="layui-nav layui-layout-left">
         <li class="layui-nav-item layui-hide-xs" lay-unselect="">
-          <a
-            href="https://github.com/wkunzhi/CRM-Manage"
-            target="_blank"
-            title="GitHub"
-            ><i class="layui-icon layui-icon-star-fill"></i> GitHub
+          <a href="https://www.ujs.edu.cn/" target="_blank" title="GitHub"
+            ><i class="layui-icon layui-icon-star-fill"></i> 关于我们
           </a>
         </li>
         <li class="layui-nav-item" lay-unselect="">
-          <a
-            href="https://blog.zhangkunzhi.com/2019/12/13/crm%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html"
-            target="_blank"
-            layadmin-event="refresh"
-            title="使用说明"
+          <a href="" target="_blank" layadmin-event="refresh" title="使用说明"
             ><i class="layui-icon layui-icon-read"></i> 使用说明
           </a>
         </li>
@@ -116,14 +130,6 @@
         class="layui-nav layui-layout-right"
         lay-filter="layadmin-layout-right"
       >
-        <li class="layui-nav-item" lay-unselect="">
-          <a
-            href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=362416272"
-            layadmin-event="refresh"
-            title="使用说明"
-            ><i class="layui-icon layui-icon-login-qq"></i> QQ
-          </a>
-        </li>
         <li class="layui-nav-item" lay-unselect="">
           <a href="javascript:;">
             <cite><i class="layui-icon layui-icon-username"></i> 用户</cite>
@@ -141,8 +147,8 @@
           ></a>
         </li>
       </ul>
-      {% endcomment %}
     </div>
+
     <!--下部-->
     <div class="pg-body">
       <!--左侧-->
@@ -151,7 +157,7 @@
         <div class="menu-body">
           <ul class="layui-nav layui-nav-tree" lay-filter="test">
             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
-            <li class="layui-nav-item"><a href="">首页</a></li>
+            <li class="layui-nav-item"><a href="/index">首页</a></li>
             <li class="layui-nav-item">
               <a href="javascript:;">村落管理</a>
               <dl class="layui-nav-child">
@@ -163,7 +169,7 @@
               <a href="javascript:;">其他功能</a>
               <dl class="layui-nav-child">
                 <dd><a href="/meeting">视频</a></dd>
-                <dd><a href="">模块2</a></dd>
+                <dd><a href="/manage">人员管理</a></dd>
                 <dd><a href="">模块3</a></dd>
               </dl>
             </li>
@@ -172,21 +178,164 @@
       </div>
       <!--右侧-->
       <div class="right-body">
-        <div class="layui-card-one"></div>
+        <div class="layui-card-one">
+          <!--用户访问路径追踪-->
 
-        <div class="right-t-body"></div>
+          <div
+            class="layui-breadcrumb"
+            lay-filter="breadcrumb"
+            style="visibility: visible"
+          >
+            <a style="text-decoration: none" href="/index">首页</a
+            ><span lay-separator="">/</span>
+          </div>
+        </div>
+
+        <div class="right-t-body">
+          <div class="layui-row layui-col-space15">
+            <div class="layui-col-md6" style="margin: 5px; width: 70%">
+              <div class="layui-card" style="margin: 5px">
+                <div class="layui-card-body">
+                  <div id="map"></div>
+                </div>
+              </div>
+            </div>
+            <div class="layui-col-md3" style="margin: 5px">
+              <div class="layui-card" style="margin: 10px">
+                <form action="" method="post">
+                  <input
+                    type="hidden"
+                    name="csrfmiddlewaretoken"
+                    value="9ebc9v9I8cHIrytS870DKBVUGJ6Nm1KfS14PYRg26CiOlddnuN2tToe77099QuoP"
+                  />
+                  <input type="hidden" name="type" value="role" />
+                  <div class="layui-card-header">
+                    <i class="fa fa-users" aria-hidden="true"></i> 选项
+                  </div>
+                  <div class="layui-card-body" style="padding: 0">
+                    <span style="color: #9d9d9d; padding-left: 15px"
+                      ><i
+                        class="fa fa-exclamation-triangle"
+                        aria-hidden="true"
+                      ></i>
+                      菜单1,可添加功能</span
+                    >
+                    <table class="layui-table">
+                      <thead>
+                        <tr style="background-color: #00968817">
+                          <th>选项</th>
+                          <th>选项</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="">
+                          <td>
+                            <a href="?rid=1">选项</a>
+                          </td>
+                          <td>
+                            <input type="checkbox" name="roles" value="1" />
+                          </td>
+                        </tr>
+
+                        <tr class="">
+                          <td>
+                            <a href="?rid=2">选项</a>
+                          </td>
+                          <td>
+                            <input type="checkbox" name="roles" value="2" />
+                          </td>
+                        </tr>
+
+                        <tr class="">
+                          <td>
+                            <a href="?rid=3">选项</a>
+                          </td>
+                          <td>
+                            <input type="checkbox" name="roles" value="3" />
+                          </td>
+                        </tr>
+
+                        <tr class="">
+                          <td>
+                            <a href="?rid=4">选项</a>
+                          </td>
+                          <td>
+                            <input type="checkbox" name="roles" value="4" />
+                          </td>
+                        </tr>
+
+                        <tr class="">
+                          <td>
+                            <a href="?rid=6">选项</a>
+                          </td>
+                          <td>
+                            <input type="checkbox" name="roles" value="6" />
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td>
+                            <a href="?rid=6">选项</a>
+                          </td>
+                          <td>
+                            <input type="checkbox" name="roles" value="6" />
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td>
+                            <a href="?rid=6">选项</a>
+                          </td>
+                          <td>
+                            <input type="checkbox" name="roles" value="6" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </form>
+              </div>
+            </div>
+            {% comment %}
+            <div class="layui-col-md6" style="margin: 20px height:600px">
+              <div class="layui-card" style="margin: 20px">
+                <div
+                  class="layui-card-body"
+                  style="margin: 20px, height: 600px"
+                ></div>
+              </div>
+            </div>
+            {% endcomment %}
+          </div>
+        </div>
       </div>
     </div>
     <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
 
     <script src="{% static 'rbac/js/rbac.js' %} "></script>
     <!--某些单独的页面需要用自己的js-->
+
+    <script
+      type="text/javascript"
+      src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=V9G5pDUaSw5wmPs24rpUoVtEC9pLU2DA"
+    ></script>
     <script>
       layui.use('element', function () {
         var element = layui.element
       })
       layui.use('form', function () {
         var form = layui.form
+      })
+
+      var map = new BMapGL.Map('map') // 创建地图实例
+      map.enableScrollWheelZoom(true) //开启鼠标滚轮缩放
+      map.centerAndZoom('南通市贲集村', 12) // 初始化地图,设置中心点坐标和地图级别
+
+      map.setHeading(64.5) //设置地图旋转角度
+      map.setTilt(73) //设置地图的倾斜角度
+
+      // 禁止地图旋转和倾斜可以通过配置项进行设置
+      var map = new BMapGL.Map('allmap', {
+        enableRotate: false,
+        enableTilt: false,
       })
     </script>
     {% block js %} {% endblock %}
