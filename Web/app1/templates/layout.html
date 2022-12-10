@@ -169,7 +169,7 @@
               <a href="javascript:;">其他功能</a>
               <dl class="layui-nav-child">
                 <dd><a href="/meeting">视频</a></dd>
-                <dd><a href="/manage">人员管理</a></dd>
+                <dd><a href="/users">人员管理</a></dd>
                 <dd><a href="">模块3</a></dd>
               </dl>
             </li>
@@ -178,134 +178,7 @@
       </div>
       <!--右侧-->
       <div class="right-body">
-        <div class="layui-card-one">
-          <!--用户访问路径追踪-->
-
-          <div
-            class="layui-breadcrumb"
-            lay-filter="breadcrumb"
-            style="visibility: visible"
-          >
-            <a style="text-decoration: none" href="/index">首页</a
-            ><span lay-separator="">/</span>
-          </div>
-        </div>
-
-        <div class="right-t-body">
-          <div class="layui-row layui-col-space15">
-            <div class="layui-col-md6" style="margin: 5px; width: 70%">
-              <div class="layui-card" style="margin: 5px">
-                <div class="layui-card-body">
-                  <div id="map"></div>
-                </div>
-              </div>
-            </div>
-            <div class="layui-col-md3" style="margin: 5px">
-              <div class="layui-card" style="margin: 10px">
-                <form action="" method="post">
-                  <input
-                    type="hidden"
-                    name="csrfmiddlewaretoken"
-                    value="9ebc9v9I8cHIrytS870DKBVUGJ6Nm1KfS14PYRg26CiOlddnuN2tToe77099QuoP"
-                  />
-                  <input type="hidden" name="type" value="role" />
-                  <div class="layui-card-header">
-                    <i class="fa fa-users" aria-hidden="true"></i> 选项
-                  </div>
-                  <div class="layui-card-body" style="padding: 0">
-                    <span style="color: #9d9d9d; padding-left: 15px"
-                      ><i
-                        class="fa fa-exclamation-triangle"
-                        aria-hidden="true"
-                      ></i>
-                      菜单1,可添加功能</span
-                    >
-                    <table class="layui-table">
-                      <thead>
-                        <tr style="background-color: #00968817">
-                          <th>选项</th>
-                          <th>选项</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="">
-                          <td>
-                            <a href="?rid=1">选项</a>
-                          </td>
-                          <td>
-                            <input type="checkbox" name="roles" value="1" />
-                          </td>
-                        </tr>
-
-                        <tr class="">
-                          <td>
-                            <a href="?rid=2">选项</a>
-                          </td>
-                          <td>
-                            <input type="checkbox" name="roles" value="2" />
-                          </td>
-                        </tr>
-
-                        <tr class="">
-                          <td>
-                            <a href="?rid=3">选项</a>
-                          </td>
-                          <td>
-                            <input type="checkbox" name="roles" value="3" />
-                          </td>
-                        </tr>
-
-                        <tr class="">
-                          <td>
-                            <a href="?rid=4">选项</a>
-                          </td>
-                          <td>
-                            <input type="checkbox" name="roles" value="4" />
-                          </td>
-                        </tr>
-
-                        <tr class="">
-                          <td>
-                            <a href="?rid=6">选项</a>
-                          </td>
-                          <td>
-                            <input type="checkbox" name="roles" value="6" />
-                          </td>
-                        </tr>
-                        <tr class="">
-                          <td>
-                            <a href="?rid=6">选项</a>
-                          </td>
-                          <td>
-                            <input type="checkbox" name="roles" value="6" />
-                          </td>
-                        </tr>
-                        <tr class="">
-                          <td>
-                            <a href="?rid=6">选项</a>
-                          </td>
-                          <td>
-                            <input type="checkbox" name="roles" value="6" />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </form>
-              </div>
-            </div>
-            {% comment %}
-            <div class="layui-col-md6" style="margin: 20px height:600px">
-              <div class="layui-card" style="margin: 20px">
-                <div
-                  class="layui-card-body"
-                  style="margin: 20px, height: 600px"
-                ></div>
-              </div>
-            </div>
-            {% endcomment %}
-          </div>
-        </div>
+        {% block content %}{% endblock  %}
       </div>
     </div>
     <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
