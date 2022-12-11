@@ -27,67 +27,21 @@
           <div class="layui-card-body">
             <form class="layui-form" method="post">
               {% csrf_token %}
+              {% for field in form %}
               <div class="layui-form-item">
                 <label class="layui-form-label"
-                  >用户名
+                  >{{field.label}}
                   <div
                     class="layui-form-mid layui-word-aux"
                     style="float: left"
                   ></div
                 ></label>
                 <div class="layui-input-block">
-                  <input
-                    type="text"
-                    name="name"
-                    maxlength="32"
-                    class="layui-input"
-                    required=""
-                    id="name"
-                  />
+                  {{ field }}
                 </div>
-                <span style="color: red"></span>
+                <span style="color: red">{{ field.errors.0 }}</span>
               </div>
-              <div class="layui-form-item">
-                <label class="layui-form-label"
-                  >密码
-                  <div
-                    class="layui-form-mid layui-word-aux"
-                    style="float: left"
-                  ></div
-                ></label>
-                <div class="layui-input-block">
-                  <input
-                    type="text"
-                    name="password"
-                    maxlength="32"
-                    class="layui-input"
-                    required=""
-                    id="password"
-                  />
-                </div>
-                <span style="color: red"></span>
-              </div>
-
-              <div class="layui-form-item">
-                <label class="layui-form-label"
-                  >手机号
-                  <div
-                    class="layui-form-mid layui-word-aux"
-                    style="float: left"
-                  ></div
-                ></label>
-                <div class="layui-input-block">
-                  <input
-                    type="text"
-                    name="phonenum"
-                    maxlength="32"
-                    class="layui-input"
-                    required=""
-                    id="phonenum"
-                  />
-                </div>
-                <span style="color: red"></span>
-              </div>
+              {% endfor %}
 
               <div class="layui-form-item">
                 <div class="layui-input-block">
