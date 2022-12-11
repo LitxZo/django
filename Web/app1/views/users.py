@@ -1,4 +1,5 @@
 from app1.models import UserInfo
+from app1.utils.ebcrypt import md5
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
@@ -23,6 +24,10 @@ class UserForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for name, field in self.fields.items():
             field.widget.attrs = {"class": "layui-input"}
+
+    def clean_password(self):
+        pwd = self.cleaned_data.get("password")
+        return md5(pwd)
 
 
 def user_add(request):
@@ -75,7 +80,7 @@ def user_change(request, id):
     # UserInfo.objects.filter(id=nid).update(name=c_name)
     # UserInfo.objects.filter(id=nid).update(password=c_password)
     # UserInfo.objects.filter(id=nid).update(phonenum=c_phonenum)
-    form = UserForm(data=request.POST)
+    form = UserForm(data=request.POST, instance=user_info)
     if form.is_valid():
         form.save()
         return redirect(reverse("user_list"))

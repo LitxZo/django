@@ -27,4 +27,5 @@ urlpatterns = [
     path("users/delete/", users.user_delete),
     path("users/<int:id>/edit/", users.user_change),
     path("login/", permission.login, name="login"),
+    path("logout/", permission.logout),
 ]

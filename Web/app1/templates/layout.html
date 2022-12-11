@@ -137,7 +137,7 @@
           ></a>
           <dl class="layui-nav-child layui-anim layui-anim-upbit">
             <dd layadmin-event="logout" style="text-align: center">
-              <a href="\logout">退出</a>
+              <a href="/logout">退出</a>
             </dd>
           </dl>
         </li>
@@ -177,9 +177,7 @@
         </div>
       </div>
       <!--右侧-->
-      <div class="right-body">
-        {% block content %}{% endblock  %}
-      </div>
+      <div class="right-body">{% block content %}{% endblock %}</div>
     </div>
     <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
 
