@@ -56,3 +56,6 @@ def logout(request):
     print("已清除session")
 
     return redirect("/login")
+
+def no_permission(request):
+    return render(request, "no_permission.html")

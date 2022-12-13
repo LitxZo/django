@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from app1.views import init, permission, users
+from app1.views import chat, init, permission, users
 from django.contrib import admin
 from django.urls import path
 
@@ -28,4 +28,7 @@ urlpatterns = [
     path("users/<int:id>/edit/", users.user_change),
     path("login/", permission.login, name="login"),
     path("logout/", permission.logout),
+    path("member/", chat.member_list),
+    path("chat/", chat.chat_ui),
+    path("no_permission/", permission.no_permission,name="no_permission"),
 ]

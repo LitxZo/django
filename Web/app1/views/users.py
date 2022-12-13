@@ -1,6 +1,6 @@
 from app1.models import UserInfo
 from app1.utils.ebcrypt import md5
-from django.shortcuts import redirect, render
+from django.shortcuts import HttpResponse, redirect, render
 from django.urls import reverse
 
 from django import forms
@@ -31,6 +31,8 @@ class UserForm(forms.ModelForm):
 
 
 def user_add(request):
+    if request.session.get("permission") != "超级管理员":
+        return redirect(reverse("no_permission"))
     if request.method == "GET":
         #     return render(request, "user_add.html")
 
@@ -54,6 +56,8 @@ def user_add(request):
 
 
 def user_delete(request):
+    if request.session.get("permission") != "超级管理员":
+        return redirect(reverse("no_permission"))
     nid = request.GET.get("nid")
     UserInfo.objects.filter(id=nid).delete()
 
@@ -61,6 +65,8 @@ def user_delete(request):
 
 
 def user_change(request, id):
+    if request.session.get("permission") != "超级管理员":
+        return redirect(reverse("no_permission"))
     # nid = request.GET.get("nid")
     # name = request.GET.get("name")
     # password = request.GET.get("password")

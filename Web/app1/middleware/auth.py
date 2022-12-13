@@ -5,10 +5,10 @@ from django.utils.deprecation import MiddlewareMixin
 
 class validation(MiddlewareMixin):
     def process_request(self, request):
-        print(request.session.get("permission"))
+    
         if request.path_info == "/login/":
             return
-        if request.session.get("permission") == "超级管理员":
+        if request.session.get("permission"):
             return
         
         return redirect(reverse("login"))
