@@ -29,6 +29,7 @@ urlpatterns = [
     path("login/", permission.login, name="login"),
     path("logout/", permission.logout),
     path("member/", chat.member_list),
-    path("chat/", chat.chat_ui),
-    path("no_permission/", permission.no_permission,name="no_permission"),
+    path("chat_list/", chat.chat_list, name="chat_list"),
+    path("no_permission/", permission.no_permission, name="no_permission"),
+    path("chat/<int:id>/send", chat.chat_send),
 ]

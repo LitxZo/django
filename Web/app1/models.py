@@ -11,5 +11,11 @@ class Permission(models.Model):
     role = models.CharField(max_length=32)
     
 
+class message(models.Model):
+    sender_id = models.CharField(verbose_name="发信人id", max_length=32)
+    recipient_id = models.CharField(verbose_name="收信人id", max_length=32)
+    sender = models.CharField(verbose_name="发信人", max_length=32)
+    recipient = models.CharField(verbose_name="收信人", max_length=32)
+    message = models.TextField(verbose_name="信息内容")
+    time = models.TimeField(verbose_name="发送时间",auto_now=True)
 
-# Create your models here.

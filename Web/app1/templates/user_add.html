@@ -26,8 +26,7 @@
           <div class="layui-card-header">添加用户</div>
           <div class="layui-card-body">
             <form class="layui-form" method="post">
-              {% csrf_token %}
-              {% for field in form %}
+              {% csrf_token %} {% for field in form %}
               <div class="layui-form-item">
                 <label class="layui-form-label"
                   >{{field.label}}
@@ -36,9 +35,7 @@
                     style="float: left"
                   ></div
                 ></label>
-                <div class="layui-input-block">
-                  {{ field }}
-                </div>
+                <div class="layui-input-block">{{ field }}</div>
                 <span style="color: red">{{ field.errors.0 }}</span>
               </div>
               {% endfor %}

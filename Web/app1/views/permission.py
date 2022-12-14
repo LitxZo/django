@@ -45,6 +45,13 @@ def login(request):
         request.session["permission"] = UserInfo.objects.filter(
             **form.cleaned_data).first().permission.role
 
+        request.session["name"] = UserInfo.objects.filter(
+            **form.cleaned_data).first().name
+        
+        request.session["id"] = UserInfo.objects.filter(
+            **form.cleaned_data).first().id
+        
+
         print(UserInfo.objects.filter(
             **form.cleaned_data).first().permission.role, "登陆成功")
 

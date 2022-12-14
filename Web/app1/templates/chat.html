@@ -14,29 +14,27 @@
 </div>
 
 <div class="right-t-body">
-  <div class="layui-row layui-col-space15">
-    <div class="layui-card" style="margin: 5px">
-      <div class="layui-card-body">
-        <div class="layui-tab" lay-allowClose="true">
-          <ul class="layui-tab-title">
-            <li class="layui-this">网站设置</li>
-            <li>用户1</li>
-            <li>用户2</li>
-            <li>用户3</li>
-            <li>用户4</li>
-          </ul>
-          <div class="layui-tab-content">
-            <div class="layui-tab-item layui-show">1</div>
-            <div class="layui-tab-item">2</div>
-            <div class="layui-tab-item">3</div>
-            <div class="layui-tab-item">4</div>
-            <div class="layui-tab-item">5</div>
-            <div class="layui-tab-item">6</div>
+  <div class="layui-card" style="margin: 5px">
+    <div class="layui-card-body">
+      <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+          <li class="layui-this">收信箱</li>
+        </ul>
+        <div class="layui-tab-content" style="height: 100px">
+          <div class="layui-tab-item layui-show">
+            收信箱内容
+            <div class="layui-card" style="margin: 5px">
+              {% for i in message_list %}
+              <div class="layui-card-header">寄件人：{{i.sender}}</div>
+              <div class="layui-card-body">内容：{{i.message}}</div>
+              {% endfor %}
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  {% comment %} <div id="test1"></div> {% endcomment %}
 </div>
 <script>
   layui.use('element', function () {
@@ -77,6 +75,17 @@
 
     element.on('tab(test)', function (elem) {
       location.hash = 'test=' + $(this).attr('lay-id')
+    })
+  })
+</script>
+<script>
+  layui.use('laypage', function () {
+    var laypage = layui.laypage
+
+    //执行一个laypage实例
+    laypage.render({
+      elem: 'test1', //注意，这里的 test1 是 ID，不用加 # 号
+      count: 50, //数据总数，从服务端得到
     })
   })
 </script>
