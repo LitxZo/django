@@ -15,7 +15,7 @@ def user_list(request):
 class UserForm(forms.ModelForm):
     class Meta:
         model = UserInfo
-        fields = ["name", "password", "phonenum"]
+        fields = ["name", "password", "phonenum", "village", "permission"]
         # widgets = {
         #     "name": forms.TextInput(attrs={"class":"layui-input"})
         # }
@@ -23,6 +23,9 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for name, field in self.fields.items():
+            if name == "village":
+                continue
+
             field.widget.attrs = {"class": "layui-input"}
 
     def clean_password(self):
