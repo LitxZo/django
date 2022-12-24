@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 15/12/2022 17:50:07
+ Date: 24/12/2022 17:39:22
 */
 
 SET NAMES utf8mb4;
@@ -53,8 +53,9 @@ CREATE TABLE `app1_permission`  (
 -- Records of app1_permission
 -- ----------------------------
 INSERT INTO `app1_permission` VALUES (1, '超级管理员');
-INSERT INTO `app1_permission` VALUES (2, '村落1管理员');
-INSERT INTO `app1_permission` VALUES (3, '村落2管理员');
+INSERT INTO `app1_permission` VALUES (2, '无权限人员');
+INSERT INTO `app1_permission` VALUES (3, '贲集村管理员');
+INSERT INTO `app1_permission` VALUES (4, '村落1管理员');
 
 -- ----------------------------
 -- Table structure for app1_userinfo
@@ -64,25 +65,45 @@ CREATE TABLE `app1_userinfo`  (
   `id` bigint(0) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `password` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `phonenum` bigint(0) NOT NULL,
+  `phonenum` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `permission_id` bigint(0) NOT NULL,
+  `village_id` bigint(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `app1_userinfo_permission_id_7c17c7c9_fk_app1_permission_id`(`permission_id`) USING BTREE,
-  CONSTRAINT `app1_userinfo_permission_id_7c17c7c9_fk_app1_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `app1_permission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  INDEX `app1_userinfo_village_id_c90a5739_fk_app1_village_id`(`village_id`) USING BTREE,
+  CONSTRAINT `app1_userinfo_permission_id_7c17c7c9_fk_app1_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `app1_permission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `app1_userinfo_village_id_c90a5739_fk_app1_village_id` FOREIGN KEY (`village_id`) REFERENCES `app1_village` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of app1_userinfo
 -- ----------------------------
-INSERT INTO `app1_userinfo` VALUES (3, '刘璇', '6a6ff412bb3c93fc1ce44ac567c10fba', 911, 2);
-INSERT INTO `app1_userinfo` VALUES (4, '杨嘉园', '265700', 10086, 2);
-INSERT INTO `app1_userinfo` VALUES (5, '卢幺', '123456', 1987786, 2);
-INSERT INTO `app1_userinfo` VALUES (6, '伟杰', '123445', 12908376, 2);
-INSERT INTO `app1_userinfo` VALUES (7, '申伟杰', '123445', 12908376, 2);
-INSERT INTO `app1_userinfo` VALUES (8, '卓文萱', '1233', 123456, 2);
-INSERT INTO `app1_userinfo` VALUES (10, 'yus', '6a6ff412bb3c93fc1ce44ac567c10fba', 123456, 3);
-INSERT INTO `app1_userinfo` VALUES (11, 'root', '6a6ff412bb3c93fc1ce44ac567c10fba', 10086, 1);
-INSERT INTO `app1_userinfo` VALUES (14, '邹敏', '6a6ff412bb3c93fc1ce44ac567c10fba', 123456, 2);
+INSERT INTO `app1_userinfo` VALUES (3, '刘璇', '6a6ff412bb3c93fc1ce44ac567c10fba', '911', 2, 1);
+INSERT INTO `app1_userinfo` VALUES (4, '杨嘉园', '265700', '10086', 2, 1);
+INSERT INTO `app1_userinfo` VALUES (5, '卢幺', '123456', '1987786', 2, 1);
+INSERT INTO `app1_userinfo` VALUES (6, '伟杰', '123445', '12908376', 2, 1);
+INSERT INTO `app1_userinfo` VALUES (7, '申伟杰', '123445', '12908376', 2, 1);
+INSERT INTO `app1_userinfo` VALUES (8, '卓文萱', '1233', '123456', 2, 1);
+INSERT INTO `app1_userinfo` VALUES (10, 'yus', '6a6ff412bb3c93fc1ce44ac567c10fba', '123456', 3, 1);
+INSERT INTO `app1_userinfo` VALUES (11, 'root', '6a6ff412bb3c93fc1ce44ac567c10fba', '10086', 1, 1);
+INSERT INTO `app1_userinfo` VALUES (14, '邹敏', '6a6ff412bb3c93fc1ce44ac567c10fba', '123456', 2, 1);
+
+-- ----------------------------
+-- Table structure for app1_village
+-- ----------------------------
+DROP TABLE IF EXISTS `app1_village`;
+CREATE TABLE `app1_village`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `village` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of app1_village
+-- ----------------------------
+INSERT INTO `app1_village` VALUES (1, '贲集村');
+INSERT INTO `app1_village` VALUES (2, '村落2');
+INSERT INTO `app1_village` VALUES (3, '村落3');
 
 -- ----------------------------
 -- Table structure for auth_group
@@ -108,7 +129,7 @@ CREATE TABLE `auth_group_permissions`  (
   INDEX `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm`(`permission_id`) USING BTREE,
   CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for auth_permission
@@ -122,7 +143,7 @@ CREATE TABLE `auth_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_permission_content_type_id_codename_01ab375a_uniq`(`content_type_id`, `codename`) USING BTREE,
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -163,6 +184,10 @@ INSERT INTO `auth_permission` VALUES (33, 'Can add message', 9, 'add_message');
 INSERT INTO `auth_permission` VALUES (34, 'Can change message', 9, 'change_message');
 INSERT INTO `auth_permission` VALUES (35, 'Can delete message', 9, 'delete_message');
 INSERT INTO `auth_permission` VALUES (36, 'Can view message', 9, 'view_message');
+INSERT INTO `auth_permission` VALUES (37, 'Can add village', 10, 'add_village');
+INSERT INTO `auth_permission` VALUES (38, 'Can change village', 10, 'change_village');
+INSERT INTO `auth_permission` VALUES (39, 'Can delete village', 10, 'delete_village');
+INSERT INTO `auth_permission` VALUES (40, 'Can view village', 10, 'view_village');
 
 -- ----------------------------
 -- Table structure for auth_user
@@ -212,7 +237,7 @@ CREATE TABLE `auth_user_user_permissions`  (
   INDEX `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm`(`permission_id`) USING BTREE,
   CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for django_admin_log
@@ -232,7 +257,7 @@ CREATE TABLE `django_admin_log`  (
   INDEX `django_admin_log_user_id_c564eba6_fk_auth_user_id`(`user_id`) USING BTREE,
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for django_content_type
@@ -253,6 +278,7 @@ INSERT INTO `django_content_type` VALUES (1, 'admin', 'logentry');
 INSERT INTO `django_content_type` VALUES (9, 'app1', 'message');
 INSERT INTO `django_content_type` VALUES (8, 'app1', 'permission');
 INSERT INTO `django_content_type` VALUES (7, 'app1', 'userinfo');
+INSERT INTO `django_content_type` VALUES (10, 'app1', 'village');
 INSERT INTO `django_content_type` VALUES (3, 'auth', 'group');
 INSERT INTO `django_content_type` VALUES (2, 'auth', 'permission');
 INSERT INTO `django_content_type` VALUES (4, 'auth', 'user');
@@ -269,7 +295,7 @@ CREATE TABLE `django_migrations`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -297,6 +323,9 @@ INSERT INTO `django_migrations` VALUES (20, 'app1', '0002_permission_alter_useri
 INSERT INTO `django_migrations` VALUES (21, 'app1', '0003_message_alter_userinfo_name_alter_userinfo_password_and_more', '2022-12-14 08:55:15.061958');
 INSERT INTO `django_migrations` VALUES (22, 'app1', '0004_message_recipient_id_message_sender_id', '2022-12-14 12:08:09.538955');
 INSERT INTO `django_migrations` VALUES (23, 'app1', '0005_alter_message_time', '2022-12-14 14:04:22.129480');
+INSERT INTO `django_migrations` VALUES (24, 'app1', '0006_village', '2022-12-15 12:24:18.461629');
+INSERT INTO `django_migrations` VALUES (25, 'app1', '0007_userinfo_village', '2022-12-15 12:29:08.374565');
+INSERT INTO `django_migrations` VALUES (26, 'app1', '0008_alter_userinfo_phonenum', '2022-12-16 14:08:57.433193');
 
 -- ----------------------------
 -- Table structure for django_session
