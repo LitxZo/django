@@ -23,8 +23,8 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for name, field in self.fields.items():
-            if name == "village":
-                continue
+            # if name == "village":
+            #     continue
 
             field.widget.attrs = {"class": "layui-input"}
 

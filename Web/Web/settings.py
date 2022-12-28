@@ -88,7 +88,7 @@ DATABASES = {
         # 用户
         'USER': 'root',
         # 密码
-        'PASSWORD': '123456'
+        'PASSWORD': '123'
     }
 }
 

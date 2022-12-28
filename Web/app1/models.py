@@ -33,3 +33,20 @@ class message(models.Model):
     recipient = models.CharField(verbose_name="收信人", max_length=32)
     message = models.TextField(verbose_name="信息内容")
     time = models.TimeField(verbose_name="发送时间", auto_now=True)
+
+
+class WorkOrder(models.Model):
+    type_choices = (('0', '初次安装'), ('1', '售后现场'), ('2', '远程支持'), ('3', '售前支持'))
+    status_choices = (('0', '工单已退回'), ('1', '新建-保存'), ('2', '提交-等待审批'),
+                      ('3', '已审批-等待执行'), ('4', '已执行-等待确认'), ('5', '工单已完成'))
+    number = models.CharField(max_length=10, verbose_name='工单号')
+    title = models.CharField(max_length=50, verbose_name='标题')
+    type = models.CharField(
+        max_length=10, choices=type_choices, default='0', verbose_name='工单类型')
+    status = models.CharField(
+        max_length=10, choices=status_choices, default='0', verbose_name='工单状态')
+    do_time = models.DateTimeField(default='', verbose_name='安排时间')
+    add_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    content = models.CharField(max_length=300, verbose_name='工单内容')
+    village = models.ForeignKey(
+        verbose_name="所属村落", to="village", to_field="id", default=1, on_delete=models.CASCADE)
