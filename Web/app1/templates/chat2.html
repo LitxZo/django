@@ -1,0 +1,92 @@
+{% extends 'layout2.html' %}{% block content %}
+
+<div class="layui-card-one">
+  <!--用户访问路径追踪-->
+
+  <div
+    class="layui-breadcrumb"
+    lay-filter="breadcrumb"
+    style="visibility: visible"
+  >
+    <a style="text-decoration: none" href="/index">首页</a
+    ><span lay-separator="">/</span>
+  </div>
+</div>
+
+<div class="right-t-body">
+  <div class="layui-card" style="margin: 5px">
+    <div class="layui-card-body">
+      <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+          <li class="layui-this">收信箱</li>
+        </ul>
+        <div class="layui-tab-content" style="height: 100px">
+          <div class="layui-tab-item layui-show">
+            收信箱内容
+            <div class="layui-card" style="margin: 5px">
+              {% for i in message_list %}
+              <div class="layui-card-header">寄件人：{{i.sender}}</div>
+              <div class="layui-card-body">内容：{{i.message}}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% comment %} <div id="test1"></div> {% endcomment %}
+</div>
+<script>
+  layui.use('element', function () {
+    var $ = layui.jquery,
+      element = layui.element //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+    //触发事件
+    var active = {
+      tabAdd: function () {
+        //新增一个Tab项
+        element.tabAdd('demo', {
+          title: '新选项' + ((Math.random() * 1000) | 0), //用于演示
+          content: '内容' + ((Math.random() * 1000) | 0),
+          id: new Date().getTime(), //实际使用一般是规定好的id，这里以时间戳模拟下
+        })
+      },
+      tabDelete: function (othis) {
+        //删除指定Tab项
+        element.tabDelete('demo', '44') //删除：“商品管理”
+
+        othis.addClass('layui-btn-disabled')
+      },
+      tabChange: function () {
+        //切换到指定Tab项
+        element.tabChange('demo', '22') //切换到：用户管理
+      },
+    }
+
+    $('.site-demo-active').on('click', function () {
+      var othis = $(this),
+        type = othis.data('type')
+      active[type] ? active[type].call(this, othis) : ''
+    })
+
+    //Hash地址的定位
+    var layid = location.hash.replace(/^#test=/, '')
+    element.tabChange('test', layid)
+
+    element.on('tab(test)', function (elem) {
+      location.hash = 'test=' + $(this).attr('lay-id')
+    })
+  })
+</script>
+<script>
+  layui.use('laypage', function () {
+    var laypage = layui.laypage
+
+    //执行一个laypage实例
+    laypage.render({
+      elem: 'test1', //注意，这里的 test1 是 ID，不用加 # 号
+      count: 50, //数据总数，从服务端得到
+    })
+  })
+</script>
+{% endblock %}

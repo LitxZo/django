@@ -36,7 +36,7 @@ class message(models.Model):
 
 
 class WorkOrder(models.Model):
-    type_choices = (('0', '初次安装'), ('1', '售后现场'), ('2', '远程支持'), ('3', '售前支持'))
+    type_choices = (('0', '类型1'), ('1', '类型2'), ('2', '类型3'), ('3', '类型4'))
     status_choices = (('0', '工单已退回'), ('1', '新建-保存'), ('2', '提交-等待审批'),
                       ('3', '已审批-等待执行'), ('4', '已执行-等待确认'), ('5', '工单已完成'))
     number = models.CharField(max_length=10, verbose_name='工单号')

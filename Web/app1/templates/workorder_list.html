@@ -15,34 +15,49 @@
 
     <!--判断是否是最后一层路径，最后一层为不可选中-->
 
-    <a style="text-decoration: none"><cite>用户列表</cite></a>
+    <a style="text-decoration: none"><cite>工单列表</cite></a>
   </div>
 </div>
 <div class="right-t-body">
   <div class="layui-row">
     <div class="layui-card layui-col-md6" style="margin: 20px">
-      <div class="layui-card-header">用户管理</div>
+      <div class="layui-card-header">
+        工单列表
+        <div style="float: right">
+          <!--因为rbac的urls有上级urls所以 ，反向生成url的方法如下-->
+          <a class="layui-btn layui-btn-sm" href="/workorder/add">
+            <!--反向生成url-->
+            <i class="fa fa-plus-square" aria-hidden="true"></i> 新建工单
+          </a>
+        </div>
+      </div>
       <div class="layui-card-body" style="padding: 0">
         <table class="layui-table" style="margin: 0">
           <thead>
             <tr style="background-color: #00968817">
               <th>ID</th>
-              <th>用户名</th>
-              <th>联系电话</th>
+              <th>标题</th>
+              <th>类型</th>
+              <th>状态</th>
+              <th>创建时间</th>
               <th>所属村落</th>
               <th>操作</th>
             </tr>
           </thead>
           <tbody>
-            {% for row in users %}
+            {% for i,type,status in workorder %}
             <tr>
-              <td>{{ row.id }}</td>
-              <td>{{ row.name }}</td>
-              <td>{{ row.phonenum }}</td>
-              <td>{{ row.village }}</td>
+              <td>{{ i.number }}</td>
+              <td>{{ i.title }}</td>
+              <td>{{ type }}</td>
+              <td>{{ status }}</td>
+              <td>{{ i.add_time }}</td>
+              <td>{{ i.village }}</td>
+
               <td>
-                <a href="/chat/{{row.id}}/send" class="layui-btn layui-btn-sm"
-                  >发送消息</a
+                <a href="" class="layui-btn layui-btn-sm">查看</a>
+                <a href="" class="layui-btn layui-btn-sm layui-btn-danger"
+                  >审批</a
                 >
               </td>
             </tr>

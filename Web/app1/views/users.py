@@ -7,9 +7,14 @@ from django import forms
 
 
 def user_list(request):
-    users = UserInfo.objects.all()
+    users = UserInfo.objects.filter(village=1).all()
 
     return render(request, "user_list.html", {"users": users})
+
+def user_list2(request):
+    users = UserInfo.objects.filter(village=2).all()
+
+    return render(request, "user_list2.html", {"users": users})
 
 
 class UserForm(forms.ModelForm):
@@ -58,6 +63,21 @@ def user_add(request):
     return render(request, "user_add.html", {"form": form})
 
 
+def user_add2(request):
+    if request.session.get("permission") != "超级管理员":
+        return redirect(reverse("no_permission"))
+    if request.method == "GET":
+        form = UserForm()
+        return render(request, "user_add2.html", {"form": form})
+
+    form = UserForm(data=request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect(reverse("user_list2"))
+
+    return render(request, "user_add2.html", {"form": form})
+
+
 def user_delete(request):
     if request.session.get("permission") != "超级管理员":
         return redirect(reverse("no_permission"))
@@ -65,6 +85,16 @@ def user_delete(request):
     UserInfo.objects.filter(id=nid).delete()
 
     return redirect(reverse("user_list"))
+
+
+def user_delete2(request):
+    if request.session.get("permission") != "超级管理员":
+        return redirect(reverse("no_permission"))
+    nid = request.GET.get("nid")
+    UserInfo.objects.filter(id=nid).delete()
+
+    return redirect(reverse("user_list2"))
+
 
 
 def user_change(request, id):
@@ -95,3 +125,23 @@ def user_change(request, id):
         return redirect(reverse("user_list"))
 
     return render(request, "user_change.html", {"form": form})
+
+
+def user_change2(request, id):
+    if request.session.get("permission") != "超级管理员":
+        return redirect(reverse("no_permission2"))
+
+
+    user_info = UserInfo.objects.filter(id=id).first()
+    if request.method == "GET":
+        # return render(request, "user_change.html", {"name": name, "password": password, "phonenum": phone})
+
+        form = UserForm(instance=user_info)
+        return render(request, "user_change2.html", {"form": form})
+
+    form = UserForm(data=request.POST, instance=user_info)
+    if form.is_valid():
+        form.save()
+        return redirect(reverse("user_list2"))
+
+    return render(request, "user_change2.html", {"form": form})

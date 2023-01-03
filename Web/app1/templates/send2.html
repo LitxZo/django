@@ -1,0 +1,53 @@
+{% extends 'layout2.html' %}{% block content %}
+
+<div class="layui-card-one">
+  <!--用户访问路径追踪-->
+
+  <div
+    class="layui-breadcrumb"
+    lay-filter="breadcrumb"
+    style="visibility: visible"
+  >
+    <a style="text-decoration: none" href="/index2">首页</a
+    ><span lay-separator="">/</span>
+  </div>
+</div>
+
+<div class="right-t-body">
+  <div class="layui-card" style="margin: 5px">
+    <div class="layui-card-body">
+      <div class="layui-card-header">收件人：{{recipient_name}}</div>
+      <form class="layui-form" method="post">
+              {% csrf_token %}
+        {% comment %} <div class="layui-form-item">
+          <label class="layui-form-label">短输入框</label>
+          <div class="layui-input-inline">{{form[0]}}</div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">文本域</label>
+          <div class="layui-input-block">{{form[1]}}</div>
+        </div> {% endcomment %}
+
+        {% for field in form %}
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">{{field.label}}</label>
+          <div class="layui-input-block">{{field}}</div>
+        </div>
+        {% endfor%}
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button
+              class="layui-btn"
+              lay-submit=""
+              lay-filter="formDemo"
+              style="width: 190px"
+            >
+              发送
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -54,6 +54,8 @@ def login(request):
 
         print(UserInfo.objects.filter(
             **form.cleaned_data).first().permission.role, "登陆成功")
+        
+        
 
         return render(request, "index.html")
 
@@ -66,3 +68,6 @@ def logout(request):
 
 def no_permission(request):
     return render(request, "no_permission.html")
+    
+def no_permission2(request):
+    return render(request, "no_permission2.html")

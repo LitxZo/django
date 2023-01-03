@@ -1,0 +1,72 @@
+{% extends 'layout2.html' %} {% block content %}
+
+<div class="layui-card-one">
+  <!--用户访问路径追踪-->
+
+  <div
+    class="layui-breadcrumb"
+    lay-filter="breadcrumb"
+    style="visibility: visible"
+  >
+    <!--判断是否是最后一层路径，最后一层为不可选中-->
+
+    <a style="text-decoration: none" href="/index">首页</a
+    ><span lay-separator="">/</span>
+
+    <!--判断是否是最后一层路径，最后一层为不可选中-->
+
+    <a style="text-decoration: none"><cite>工单列表</cite></a>
+  </div>
+</div>
+<div class="right-t-body">
+  <div class="layui-row">
+    <div class="layui-card layui-col-md6" style="margin: 20px">
+      <div class="layui-card-header">
+        工单列表
+        <div style="float: right">
+          <!--因为rbac的urls有上级urls所以 ，反向生成url的方法如下-->
+          <a class="layui-btn layui-btn-sm" href="/workorder2/add">
+            <!--反向生成url-->
+            <i class="fa fa-plus-square" aria-hidden="true"></i> 新建工单
+          </a>
+        </div>
+      </div>
+      <div class="layui-card-body" style="padding: 0">
+        <table class="layui-table" style="margin: 0">
+          <thead>
+            <tr style="background-color: #00968817">
+              <th>ID</th>
+              <th>标题</th>
+              <th>类型</th>
+              <th>状态</th>
+              <th>创建时间</th>
+              <th>所属村落</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i,type,status in workorder %}
+            <tr>
+              <td>{{ i.number }}</td>
+              <td>{{ i.title }}</td>
+              <td>{{ type }}</td>
+              <td>{{ status }}</td>
+              <td>{{ i.add_time }}</td>
+              <td>{{ i.village }}</td>
+
+              <td>
+                <a href="" class="layui-btn layui-btn-sm">查看</a>
+                <a href="" class="layui-btn layui-btn-sm layui-btn-danger"
+                  >审批</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

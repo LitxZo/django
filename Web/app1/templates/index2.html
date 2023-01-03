@@ -1,0 +1,144 @@
+{% extends 'layout2.html' %} {% block content %}
+<div class="layui-card-one">
+  <!--用户访问路径追踪-->
+
+  <div
+    class="layui-breadcrumb"
+    lay-filter="breadcrumb"
+    style="visibility: visible"
+  >
+    <a style="text-decoration: none" href="/index">首页</a
+    ><span lay-separator="">/</span>
+  </div>
+</div>
+
+<div class="right-t-body">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md6" style="margin: 5px; width: 70%">
+      <div class="layui-card" style="margin: 5px">
+        <div class="layui-card-body">
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+    <div class="layui-col-md3" style="margin: 5px">
+      <div class="layui-card" style="margin: 10px">
+        <form action="" method="post">
+          <input
+            type="hidden"
+            name="csrfmiddlewaretoken"
+            value="9ebc9v9I8cHIrytS870DKBVUGJ6Nm1KfS14PYRg26CiOlddnuN2tToe77099QuoP"
+          />
+          <input type="hidden" name="type" value="role" />
+          <div class="layui-card-header">
+            <i class="fa fa-users" aria-hidden="true"></i> 选项
+          </div>
+          <div class="layui-card-body" style="padding: 0">
+            <span style="color: #9d9d9d; padding-left: 15px"
+              ><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+              菜单1,可添加功能</span
+            >
+            <table class="layui-table">
+              <thead>
+                <tr style="background-color: #00968817">
+                  <th>选项</th>
+                  <th>选项</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="">
+                  <td>
+                    <a href="?rid=1">选项</a>
+                  </td>
+                  <td>
+                    <input type="checkbox" name="roles" value="1" />
+                  </td>
+                </tr>
+
+                <tr class="">
+                  <td>
+                    <a href="?rid=2">选项</a>
+                  </td>
+                  <td>
+                    <input type="checkbox" name="roles" value="2" />
+                  </td>
+                </tr>
+
+                <tr class="">
+                  <td>
+                    <a href="?rid=3">选项</a>
+                  </td>
+                  <td>
+                    <input type="checkbox" name="roles" value="3" />
+                  </td>
+                </tr>
+
+                <tr class="">
+                  <td>
+                    <a href="?rid=4">选项</a>
+                  </td>
+                  <td>
+                    <input type="checkbox" name="roles" value="4" />
+                  </td>
+                </tr>
+
+                <tr class="">
+                  <td>
+                    <a href="?rid=6">选项</a>
+                  </td>
+                  <td>
+                    <input type="checkbox" name="roles" value="6" />
+                  </td>
+                </tr>
+                <tr class="">
+                  <td>
+                    <a href="?rid=6">选项</a>
+                  </td>
+                  <td>
+                    <input type="checkbox" name="roles" value="6" />
+                  </td>
+                </tr>
+                <tr class="">
+                  <td>
+                    <a href="?rid=6">选项</a>
+                  </td>
+                  <td>
+                    <input type="checkbox" name="roles" value="6" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+    </div>
+    {% comment %}
+    <div class="layui-col-md6" style="margin: 20px height:600px">
+      <div class="layui-card" style="margin: 20px">
+        <div class="layui-card-body" style="margin: 20px, height: 600px"></div>
+      </div>
+    </div>
+    {% endcomment %}
+  </div>
+</div>
+<script
+      type="text/javascript"
+      src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=V9G5pDUaSw5wmPs24rpUoVtEC9pLU2DA"
+    ></script>
+    <script>
+      
+
+      var map = new BMapGL.Map('map') // 创建地图实例
+      map.enableScrollWheelZoom(true) //开启鼠标滚轮缩放
+      map.centerAndZoom('南通市蒋庄村', 12) // 初始化地图,设置中心点坐标和地图级别
+
+      map.setHeading(64.5) //设置地图旋转角度
+      map.setTilt(73) //设置地图的倾斜角度
+
+      // 禁止地图旋转和倾斜可以通过配置项进行设置
+      var map = new BMapGL.Map('allmap', {
+        enableRotate: false,
+        enableTilt: false,
+      })
+    </script>
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'layout.html' %} {% block content %}
+{% extends 'layout2.html' %} {% block content %}
 
 <div class="layui-card-one">
   <!--用户访问路径追踪-->
@@ -10,7 +10,7 @@
   >
     <!--判断是否是最后一层路径，最后一层为不可选中-->
 
-    <a style="text-decoration: none" href="/index">首页</a
+    <a style="text-decoration: none" href="/index2">首页</a
     ><span lay-separator="">/</span>
 
     <!--判断是否是最后一层路径，最后一层为不可选中-->
@@ -21,7 +21,16 @@
 <div class="right-t-body">
   <div class="layui-row">
     <div class="layui-card layui-col-md6" style="margin: 20px">
-      <div class="layui-card-header">用户管理</div>
+      <div class="layui-card-header">
+        用户管理
+        <div style="float: right">
+          <!--因为rbac的urls有上级urls所以 ，反向生成url的方法如下-->
+          <a class="layui-btn layui-btn-sm" href="/users/add">
+            <!--反向生成url-->
+            <i class="fa fa-plus-square" aria-hidden="true"></i> 添加角色
+          </a>
+        </div>
+      </div>
       <div class="layui-card-body" style="padding: 0">
         <table class="layui-table" style="margin: 0">
           <thead>
@@ -29,7 +38,6 @@
               <th>ID</th>
               <th>用户名</th>
               <th>联系电话</th>
-              <th>所属村落</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -39,10 +47,16 @@
               <td>{{ row.id }}</td>
               <td>{{ row.name }}</td>
               <td>{{ row.phonenum }}</td>
-              <td>{{ row.village }}</td>
               <td>
-                <a href="/chat/{{row.id}}/send" class="layui-btn layui-btn-sm"
-                  >发送消息</a
+                <a
+                  href="/users/{{row.id}}/edit/"
+                  class="layui-btn layui-btn-sm"
+                  >编辑</a
+                >
+                <a
+                  href="/users/delete/?nid={{row.id}}"
+                  class="layui-btn layui-btn-sm layui-btn-danger"
+                  >删除</a
                 >
               </td>
             </tr>
