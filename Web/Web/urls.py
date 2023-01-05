@@ -45,4 +45,9 @@ urlpatterns = [
     path("workorder2/add/", workorder.workorder_create2),
     path("workorder/list/", workorder.workorder_list, name="workorder_list"),
     path("workorder2/list/", workorder.workorder_list2, name="workorder_list2"),
+    path("workorder/<int:id>/record/", workorder.record, name="workorder_record"),
+    path("workorder2/<int:id>/record/", workorder.record2, name="workorder_record2"),
+    path("workorder/<int:id>/handle",workorder.handle),
+    path("workorder2/<int:id>/handle",workorder.handle2),
+
 ]

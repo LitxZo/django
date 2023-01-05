@@ -1,4 +1,4 @@
-from app1.models import UserInfo, WorkOrder
+from app1.models import Record, UserInfo, WorkOrder
 from app1.utils.ebcrypt import md5
 from django.shortcuts import HttpResponse, redirect, render
 from django.urls import reverse
@@ -54,9 +54,9 @@ def workorder_list(request):
     for i in workorder:
         typelist.append(i.get_type_display())
         statuslist.append(i.get_status_display())
-        print(lengh,i)
+        print(lengh, i)
 
-    workorder_e = zip(workorder,typelist,statuslist)
+    workorder_e = zip(workorder, typelist, statuslist)
     # print(typelist, statuslist,workorder_e,lengh)
     return render(request, "workorder_list.html", {"workorder": workorder_e})
 
@@ -74,3 +74,71 @@ def workorder_list2(request):
     workorder_e = zip(workorder, typelist, statuslist)
     # print(typelist, statuslist,workorder_e,lengh)
     return render(request, "workorder_list2.html", {"workorder": workorder_e})
+
+
+class record_form(forms.Form):
+    content = forms.CharField(
+        label="记录内容",
+        widget=forms.Textarea(attrs={"class": "layui-textarea"})
+    )
+
+
+def handle(request, id):
+
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "贲集村管理员":
+        return redirect(reverse("no_permission"))
+
+    workorder_id = id
+    handler_id = request.session.get("id")
+    handler = UserInfo.objects.filter(id=handler_id).first()
+    handler_name = request.session.get("name")
+    workorder = WorkOrder.objects.filter(id=workorder_id).first()
+    if request.method == "GET":
+        post_form = record_form()
+        return render(request, "workorder_handle.html", {"form": post_form, "handler_name": handler_name})
+
+    post_form = record_form(data=request.POST)
+    if post_form.is_valid():
+        post_content = post_form.cleaned_data["content"]
+        Record.objects.create(
+            handler=handler,
+            content=post_content,
+            number=workorder,
+        )
+        return redirect(reverse("workorder_list"))
+
+
+def handle2(request, id):
+
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员":
+        return redirect(reverse("no_permission2"))
+
+    workorder_id = id
+    handler_id = request.session.get("id")
+    handler = UserInfo.objects.filter(id=handler_id).first()
+    handler_name = request.session.get("name")
+    workorder = WorkOrder.objects.filter(id=workorder_id).first()
+    if request.method == "GET":
+        post_form = record_form()
+        return render(request, "workorder_handler2.html", {"form": post_form, "handler_name": handler_name})
+
+    post_form = record_form(data=request.POST)
+    if post_form.is_valid():
+        post_content = post_form.cleaned_data["content"]
+        Record.objects.create(
+            handler=handler,
+            content=post_content,
+            number=workorder,
+        )
+        return redirect(reverse("workorder_list2"))
+
+
+def record(request, id):
+    record = Record.objects.filter(number=id).all()
+
+    return render(request, "workorder_record.html", {"record": record})
+
+
+def record2(request, id):
+    record = Record.objects.filter(number=id).all()
+    return render(request, "workorder_record2.html", {"record": record})

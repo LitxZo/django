@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}{% block content %}
+{% extends 'layout2.html' %}{% block content %}
 
 <div class="layui-card-one">
   <!--用户访问路径追踪-->
@@ -8,7 +8,7 @@
     lay-filter="breadcrumb"
     style="visibility: visible"
   >
-    <a style="text-decoration: none" href="/index">首页</a
+    <a style="text-decoration: none" href="/index2">首页</a
     ><span lay-separator="">/</span>
   </div>
 </div>
@@ -16,12 +16,12 @@
 <div class="right-t-body">
   <div class="layui-card" style="margin: 5px">
     <div class="layui-card-body">
-      <div class="layui-card-header">收件人：{{recipient_name}}</div>
+      <div class="layui-card-header"></div>
       <form class="layui-form" method="post">
               {% csrf_token %}
 
 
-        {% for field in form %}
+        {% for field in post_form %}
         <div class="layui-form-item layui-form-text">
           <label class="layui-form-label">{{field.label}}</label>
           <div class="layui-input-block">{{field}}</div>

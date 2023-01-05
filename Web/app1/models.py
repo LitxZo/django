@@ -11,6 +11,9 @@ class UserInfo(models.Model):
     village = models.ForeignKey(
         verbose_name="所属村落", to="village", to_field="id", default=1, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class Permission(models.Model):
     role = models.CharField(max_length=32)
@@ -32,7 +35,7 @@ class message(models.Model):
     sender = models.CharField(verbose_name="发信人", max_length=32)
     recipient = models.CharField(verbose_name="收信人", max_length=32)
     message = models.TextField(verbose_name="信息内容")
-    time = models.TimeField(verbose_name="发送时间", auto_now=True)
+    time = models.DateTimeField(verbose_name="发送时间", auto_now_add=True)
 
 
 class WorkOrder(models.Model):
@@ -50,3 +53,12 @@ class WorkOrder(models.Model):
     content = models.CharField(max_length=300, verbose_name='工单内容')
     village = models.ForeignKey(
         verbose_name="所属村落", to="village", to_field="id", default=1, on_delete=models.CASCADE)
+
+
+class Record(models.Model):
+    handler = models.ForeignKey(
+        verbose_name="处理人", to="UserInfo", to_field="id", on_delete=models.CASCADE)
+    content = models.CharField(max_length=300, verbose_name='处理记录')
+    number = models.ForeignKey(
+        verbose_name="工单id", to="WorkOrder", to_field="id", on_delete=models.CASCADE)
+    handle_time = models.DateTimeField(auto_now_add=True, verbose_name='处理时间')

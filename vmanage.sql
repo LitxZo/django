@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 03/01/2023 15:44:43
+ Date: 05/01/2023 15:27:00
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `app1_message`  (
   `sender` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `recipient` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `message` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `time` time(6) NOT NULL,
+  `time` datetime(6) NOT NULL,
   `recipient_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `sender_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -35,9 +35,9 @@ CREATE TABLE `app1_message`  (
 -- ----------------------------
 -- Records of app1_message
 -- ----------------------------
-INSERT INTO `app1_message` VALUES (1, '刘璇', 'root', '这是一条测试信息', '20:12:16.000000', '11', '3');
-INSERT INTO `app1_message` VALUES (2, 'root', '刘璇', '这是一条测试消息', '22:04:34.487506', '3', '11');
-INSERT INTO `app1_message` VALUES (3, 'root', '邹敏', 'ahahahahahahaha', '22:05:54.601072', '14', '11');
+INSERT INTO `app1_message` VALUES (1, '刘璇', 'root', '这是一条测试信息', '2023-01-04 20:12:16.000000', '11', '3');
+INSERT INTO `app1_message` VALUES (2, 'root', '刘璇', '这是一条测试消息', '2023-01-04 22:04:34.487506', '3', '11');
+INSERT INTO `app1_message` VALUES (3, 'root', '邹敏', 'ahahahahahahaha', '2023-01-04 22:05:54.601072', '14', '11');
 
 -- ----------------------------
 -- Table structure for app1_permission
@@ -56,6 +56,29 @@ INSERT INTO `app1_permission` VALUES (1, '超级管理员');
 INSERT INTO `app1_permission` VALUES (2, '无权限人员');
 INSERT INTO `app1_permission` VALUES (3, '贲集村管理员');
 INSERT INTO `app1_permission` VALUES (4, '蒋庄村管理员');
+
+-- ----------------------------
+-- Table structure for app1_record
+-- ----------------------------
+DROP TABLE IF EXISTS `app1_record`;
+CREATE TABLE `app1_record`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `content` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `handler_id` bigint(0) NOT NULL,
+  `number_id` bigint(0) NOT NULL,
+  `handle_time` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `app1_record_handler_id_2ac8849b_fk_app1_userinfo_id`(`handler_id`) USING BTREE,
+  INDEX `app1_record_number_id_db068298_fk_app1_workorder_id`(`number_id`) USING BTREE,
+  CONSTRAINT `app1_record_handler_id_2ac8849b_fk_app1_userinfo_id` FOREIGN KEY (`handler_id`) REFERENCES `app1_userinfo` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `app1_record_number_id_db068298_fk_app1_workorder_id` FOREIGN KEY (`number_id`) REFERENCES `app1_workorder` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of app1_record
+-- ----------------------------
+INSERT INTO `app1_record` VALUES (1, '处理测试1', 11, 1, '2023-01-04 07:07:38.161384');
+INSERT INTO `app1_record` VALUES (2, '长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试', 11, 1, '2023-01-04 07:11:13.176520');
 
 -- ----------------------------
 -- Table structure for app1_userinfo
@@ -138,7 +161,7 @@ CREATE TABLE `auth_group`  (
   `name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for auth_group_permissions
@@ -153,7 +176,7 @@ CREATE TABLE `auth_group_permissions`  (
   INDEX `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm`(`permission_id`) USING BTREE,
   CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for auth_permission
@@ -167,7 +190,7 @@ CREATE TABLE `auth_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_permission_content_type_id_codename_01ab375a_uniq`(`content_type_id`, `codename`) USING BTREE,
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -216,6 +239,10 @@ INSERT INTO `auth_permission` VALUES (41, 'Can add work order', 11, 'add_workord
 INSERT INTO `auth_permission` VALUES (42, 'Can change work order', 11, 'change_workorder');
 INSERT INTO `auth_permission` VALUES (43, 'Can delete work order', 11, 'delete_workorder');
 INSERT INTO `auth_permission` VALUES (44, 'Can view work order', 11, 'view_workorder');
+INSERT INTO `auth_permission` VALUES (45, 'Can add record', 12, 'add_record');
+INSERT INTO `auth_permission` VALUES (46, 'Can change record', 12, 'change_record');
+INSERT INTO `auth_permission` VALUES (47, 'Can delete record', 12, 'delete_record');
+INSERT INTO `auth_permission` VALUES (48, 'Can view record', 12, 'view_record');
 
 -- ----------------------------
 -- Table structure for auth_user
@@ -235,7 +262,7 @@ CREATE TABLE `auth_user`  (
   `date_joined` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for auth_user_groups
@@ -250,7 +277,7 @@ CREATE TABLE `auth_user_groups`  (
   INDEX `auth_user_groups_group_id_97559544_fk_auth_group_id`(`group_id`) USING BTREE,
   CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for auth_user_user_permissions
@@ -265,7 +292,7 @@ CREATE TABLE `auth_user_user_permissions`  (
   INDEX `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm`(`permission_id`) USING BTREE,
   CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for django_admin_log
@@ -285,7 +312,7 @@ CREATE TABLE `django_admin_log`  (
   INDEX `django_admin_log_user_id_c564eba6_fk_auth_user_id`(`user_id`) USING BTREE,
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for django_content_type
@@ -297,7 +324,7 @@ CREATE TABLE `django_content_type`  (
   `model` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `django_content_type_app_label_model_76bd3d3b_uniq`(`app_label`, `model`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -305,6 +332,7 @@ CREATE TABLE `django_content_type`  (
 INSERT INTO `django_content_type` VALUES (1, 'admin', 'logentry');
 INSERT INTO `django_content_type` VALUES (9, 'app1', 'message');
 INSERT INTO `django_content_type` VALUES (8, 'app1', 'permission');
+INSERT INTO `django_content_type` VALUES (12, 'app1', 'record');
 INSERT INTO `django_content_type` VALUES (7, 'app1', 'userinfo');
 INSERT INTO `django_content_type` VALUES (10, 'app1', 'village');
 INSERT INTO `django_content_type` VALUES (11, 'app1', 'workorder');
@@ -324,7 +352,7 @@ CREATE TABLE `django_migrations`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -357,6 +385,9 @@ INSERT INTO `django_migrations` VALUES (25, 'app1', '0007_userinfo_village', '20
 INSERT INTO `django_migrations` VALUES (26, 'app1', '0008_alter_userinfo_phonenum', '2022-12-16 14:08:57.433193');
 INSERT INTO `django_migrations` VALUES (27, 'app1', '0009_workorder', '2022-12-28 12:36:20.981929');
 INSERT INTO `django_migrations` VALUES (28, 'app1', '0010_alter_workorder_type', '2022-12-28 12:38:41.532895');
+INSERT INTO `django_migrations` VALUES (29, 'app1', '0011_record', '2023-01-04 05:43:36.325421');
+INSERT INTO `django_migrations` VALUES (30, 'app1', '0012_record_handle_time', '2023-01-04 06:12:37.940447');
+INSERT INTO `django_migrations` VALUES (31, 'app1', '0013_alter_message_time', '2023-01-04 06:16:08.401667');
 
 -- ----------------------------
 -- Table structure for django_session
