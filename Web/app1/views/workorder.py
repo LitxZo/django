@@ -120,7 +120,7 @@ def handle2(request, id):
     workorder = WorkOrder.objects.filter(id=workorder_id).first()
     if request.method == "GET":
         post_form = record_form()
-        return render(request, "workorder_handler2.html", {"form": post_form, "handler_name": handler_name})
+        return render(request, "workorder_handle2.html", {"form": post_form, "handler_name": handler_name})
 
     post_form = record_form(data=request.POST)
     if post_form.is_valid():
@@ -142,3 +142,53 @@ def record(request, id):
 def record2(request, id):
     record = Record.objects.filter(number=id).all()
     return render(request, "workorder_record2.html", {"record": record})
+
+
+class edit_form(forms.ModelForm):
+    class Meta:
+        model = WorkOrder
+        fields = ["number", "title", "type",
+                  "status", "do_time", "content", "village"]
+        widgets = {
+            "content": forms.Textarea(attrs={"class": "layui-textarea"}),
+            "number": forms.TextInput(attrs={"readonly": True}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            if name != "content":
+                field.widget.attrs = {"class": "layui-input"}
+            if name == "number" or name == "title":
+                field.widget.attrs = {"class": "layui-input", "readonly": True}
+
+
+def edit(request, id):
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "贲集村管理员":
+        return redirect(reverse("no_permission"))
+
+    workorder_id = id
+    workorder = WorkOrder.objects.filter(id=workorder_id).first()
+    if request.method == "GET":
+        form = edit_form(instance=workorder)
+        return render(request, "workorder_edit.html", {"workorder": workorder, "form": form})
+
+    form = edit_form(data=request.POST, instance=workorder)
+    if form.is_valid():
+        form.save()
+        return redirect(reverse("workorder_list"))
+
+def edit2(request, id):
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员":
+        return redirect(reverse("no_permission"))
+
+    workorder_id = id
+    workorder = WorkOrder.objects.filter(id=workorder_id).first()
+    if request.method == "GET":
+        form = edit_form(instance=workorder)
+        return render(request, "workorder_edit2.html", {"workorder": workorder, "form": form})
+
+    form = edit_form(data=request.POST, instance=workorder)
+    if form.is_valid():
+        form.save()
+        return redirect(reverse("workorder_list2"))

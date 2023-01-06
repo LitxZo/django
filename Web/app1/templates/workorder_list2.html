@@ -40,6 +40,7 @@
               <th>类型</th>
               <th>状态</th>
               <th>创建时间</th>
+              <th>工单内容</th>
               <th>所属村落</th>
               <th>操作</th>
             </tr>
@@ -52,15 +53,25 @@
               <td>{{ type }}</td>
               <td>{{ status }}</td>
               <td>{{ i.add_time }}</td>
+              <td>{{ i.content }}</td>
               <td>{{ i.village }}</td>
 
               <td>
-                <a href="" class="layui-btn layui-btn-sm">查看内容</a>
-                <a href="/workorder2/{{i.id}}/record" class="layui-btn layui-btn-sm">处理记录</a>
-                <a href="/workorder2/{{i.id}}/handle" class="layui-btn layui-btn-sm layui-btn-danger"
+                <a
+                  href="/workorder2/{{i.id}}/edit"
+                  class="layui-btn layui-btn-sm"
+                  >编辑</a
+                >
+                <a
+                  href="/workorder2/{{i.id}}/record"
+                  class="layui-btn layui-btn-sm"
+                  >处理记录</a
+                >
+                <a
+                  href="/workorder2/{{i.id}}/handle"
+                  class="layui-btn layui-btn-sm layui-btn-danger"
                   >处理</a
                 >
-
               </td>
             </tr>
             {% endfor %}
