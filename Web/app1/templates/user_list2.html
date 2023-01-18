@@ -53,10 +53,16 @@
                   class="layui-btn layui-btn-sm"
                   >编辑</a
                 >
-                <a
+                {% comment %} <a
                   href="/users/delete/?nid={{row.id}}"
                   class="layui-btn layui-btn-sm layui-btn-danger"
                   >删除</a
+                > {% endcomment %}
+                <button
+                  uid="{{row.id}}"
+                  id="test1"
+                  class="layui-btn layui-btn-sm layui-btn-danger delete-btn"
+                  >删除</button
                 >
               </td>
             </tr>

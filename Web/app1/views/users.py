@@ -7,12 +7,14 @@ from django import forms
 
 
 def user_list(request):
-    users = UserInfo.objects.filter(village=1).all()
+    uid = request.session.get("id")
+    users = UserInfo.objects.filter(village=1).exclude(id=uid).all()
 
     return render(request, "user_list.html", {"users": users})
 
 def user_list2(request):
-    users = UserInfo.objects.filter(village=2).all()
+    uid = request.session.get("id")
+    users = UserInfo.objects.filter(village=2).exclude(id=uid).all()
 
     return render(request, "user_list2.html", {"users": users})
 

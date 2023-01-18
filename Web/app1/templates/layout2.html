@@ -220,6 +220,23 @@
       layui.use('form', function () {
         var form = layui.form
       })
+      layui.use('layer', function() {
+        var layer = layui.layer;
+        $(".delete-btn").click(function(){
+          DELETE_ID = $(this).attr("uid");
+          DELETE_URL = "/users2/delete/?nid="+DELETE_ID;
+          console.log(DELETE_ID);
+          layer.open({
+            title: ['温馨提示'],
+            content: '请确认删除，您的数据将会被清除！',
+            btn: ['确定', '取消'],
+            shadeClose: true,
+            //回调函数
+            yes: function(index, layero){
+              self.location=DELETE_URL;//确定按钮跳转地址
+           },
+            })
+      })})
     </script>
 
     {% block js %} {% endblock %}

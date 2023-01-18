@@ -39,7 +39,7 @@ class ChatForm(forms.Form):
 
 def chat_list(request):
     id = request.session.get("id")
-    message_list = message.objects.filter(recipient_id=id).all()
+    message_list = message.objects.filter(recipient_id=id).exclude(id=id).all()
 
 
     if request.method == "GET":
@@ -48,7 +48,7 @@ def chat_list(request):
 
 def chat_list2(request):
     id = request.session.get("id")
-    message_list = message.objects.filter(recipient_id=id).all()
+    message_list = message.objects.filter(recipient_id=id).exclude(id=id).all()
 
 
     if request.method == "GET":
