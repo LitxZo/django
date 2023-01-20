@@ -1,5 +1,6 @@
 from app1.models import Record, UserInfo, WorkOrder
 from app1.utils.ebcrypt import md5
+from django.core.exceptions import ValidationError
 from django.shortcuts import HttpResponse, redirect, render
 from django.urls import reverse
 
@@ -20,6 +21,14 @@ class workorder_form(forms.ModelForm):
         for name, field in self.fields.items():
             if name != "content":
                 field.widget.attrs = {"class": "layui-input"}
+
+    def clean_number(self):
+        data = self.cleaned_data["number"]
+        exists = WorkOrder.objects.filter(number=data).exists()
+        if exists:
+            raise ValidationError("工单号已存在")
+        
+        return data
 
 
 def workorder_create(request):
@@ -47,7 +56,11 @@ def workorder_create2(request):
 
 
 def workorder_list(request):
-    workorder = WorkOrder.objects.filter(village=1).all()
+    data_dict = {}
+    value = request.GET.get("q")
+    if value:
+        data_dict["number__contains"] = value
+    workorder = WorkOrder.objects.filter(village=1 ,**data_dict).all()
     typelist = []
     statuslist = []
     lengh = range(len(workorder))
@@ -62,7 +75,11 @@ def workorder_list(request):
 
 
 def workorder_list2(request):
-    workorder = WorkOrder.objects.filter(village=2).all()
+    data_dict = {}
+    value = request.GET.get("q")
+    if value:
+        data_dict["number__contains"] = value
+    workorder = WorkOrder.objects.filter(village=2 ,**data_dict).all()
     typelist = []
     statuslist = []
     lengh = range(len(workorder))

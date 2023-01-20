@@ -51,6 +51,8 @@ def login(request):
         request.session["id"] = UserInfo.objects.filter(
             **form.cleaned_data).first().id
         
+        
+        request.session.set_expiry(0)
 
         print(UserInfo.objects.filter(
             **form.cleaned_data).first().permission.role, "登陆成功")

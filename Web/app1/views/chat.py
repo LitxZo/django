@@ -19,13 +19,24 @@ def member_list(request):
     # if request.session.get("permission") == "蒋庄村管理员":
     #     users = UserInfo.objects.filter(village=2).all()
     #     return render(request, "member_list.html", {"users": users})
-    users = UserInfo.objects.filter(village=1).all()
+    data_dict = {}
+    value = request.GET.get("q")
+    if value:
+        data_dict["name__contains"] = value
+    uid = request.session.get("id")
+    users = UserInfo.objects.filter(village=1, **data_dict).exclude(id=uid).all()
     return render(request, "member_list.html", {"users": users})
 
 def member_list2(request):
     if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员":
         return redirect(reverse("no_permission2"))
-    users = UserInfo.objects.filter(village=2).all()
+
+    data_dict = {}
+    value = request.GET.get("q")
+    if value:
+        data_dict["name__contains"] = value
+    uid = request.session.get("id")
+    users = UserInfo.objects.filter(village=2, **data_dict).exclude(id=uid).all()
 
     return render(request, "member_list.html", {"users": users})
 

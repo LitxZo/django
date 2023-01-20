@@ -7,14 +7,23 @@ from django import forms
 
 
 def user_list(request):
+    data_dict = {}
+    value = request.GET.get("q")
+    if value:
+        data_dict["name__contains"] = value
+    
     uid = request.session.get("id")
-    users = UserInfo.objects.filter(village=1).exclude(id=uid).all()
+    users = UserInfo.objects.filter(village=1, **data_dict).exclude(id=uid).all()
 
     return render(request, "user_list.html", {"users": users})
 
 def user_list2(request):
+    data_dict = {}
+    value = request.GET.get("q")
+    if value:
+        data_dict["name__contains"] = value
     uid = request.session.get("id")
-    users = UserInfo.objects.filter(village=2).exclude(id=uid).all()
+    users = UserInfo.objects.filter(village=2, **data_dict).exclude(id=uid).all()
 
     return render(request, "user_list2.html", {"users": users})
 

@@ -15,7 +15,15 @@
 
     <!--判断是否是最后一层路径，最后一层为不可选中-->
 
-    <a style="text-decoration: none"><cite>用户列表</cite></a>
+    <a style="text-decoration: none" href="/member2"><cite>用户列表</cite></a>
+    <div style="float:right">
+      <form method="get">
+        <div class="layui-input-inline">
+          <input type="text" name="q" lay-verify="required" placeholder="搜索" autocomplete="off" class="layui-input">
+        </div>
+        <button type="submit" class="layui-btn layui-btn-sm"><i class="layui-icon"></i></button>
+      </form>
+    </div>
   </div>
 </div>
 <div class="right-t-body">
