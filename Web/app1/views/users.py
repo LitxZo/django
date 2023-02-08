@@ -157,3 +157,4 @@ def user_change2(request, id):
 
 
     return render(request, "user_change2.html", {"form": form})
+    
