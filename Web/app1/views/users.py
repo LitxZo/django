@@ -155,4 +155,5 @@ def user_change2(request, id):
         form.save()
         return redirect(reverse("user_list2"))
 
+
     return render(request, "user_change2.html", {"form": form})
