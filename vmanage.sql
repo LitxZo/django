@@ -11,11 +11,29 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 18/01/2023 18:42:43
+ Date: 08/02/2023 21:04:38
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for app1_address_info
+-- ----------------------------
+DROP TABLE IF EXISTS `app1_address_info`;
+CREATE TABLE `app1_address_info`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `longitude` double NOT NULL,
+  `latitude` double NOT NULL,
+  `data` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of app1_address_info
+-- ----------------------------
+INSERT INTO `app1_address_info` VALUES (1, 118.309814, 32.30024, '摄像头1', 'http://127.0.0.1:8000/display');
 
 -- ----------------------------
 -- Table structure for app1_message
@@ -72,7 +90,7 @@ CREATE TABLE `app1_record`  (
   INDEX `app1_record_number_id_db068298_fk_app1_workorder_id`(`number_id`) USING BTREE,
   CONSTRAINT `app1_record_handler_id_2ac8849b_fk_app1_userinfo_id` FOREIGN KEY (`handler_id`) REFERENCES `app1_userinfo` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `app1_record_number_id_db068298_fk_app1_workorder_id` FOREIGN KEY (`number_id`) REFERENCES `app1_workorder` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of app1_record
@@ -80,6 +98,19 @@ CREATE TABLE `app1_record`  (
 INSERT INTO `app1_record` VALUES (1, '处理测试1', 11, 1, '2023-01-04 07:07:38.161384');
 INSERT INTO `app1_record` VALUES (2, '长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试长记录测试', 11, 1, '2023-01-04 07:11:13.176520');
 INSERT INTO `app1_record` VALUES (3, '修改了工单内容', 11, 2, '2023-01-06 07:28:34.093639');
+INSERT INTO `app1_record` VALUES (4, '测试处理1', 20, 4, '2023-01-28 13:30:32.422332');
+INSERT INTO `app1_record` VALUES (5, '测试处理2', 20, 4, '2023-01-28 13:30:45.317440');
+INSERT INTO `app1_record` VALUES (6, '1111', 11, 4, '2023-01-28 13:45:33.625635');
+INSERT INTO `app1_record` VALUES (7, '222', 11, 4, '2023-02-07 07:11:14.792947');
+INSERT INTO `app1_record` VALUES (8, '修改了工单内容：5-->测试\n修改了工单类型：1-->0\n修改了工单状态：1-->2\n修改了处理时间：2023-01-01 00:02:00+00:00-->2023-01-01 00:03:00+00:00\n', 11, 4, '2023-02-08 12:49:33.246957');
+INSERT INTO `app1_record` VALUES (9, '修改了工单类型：类型1-->0\n修改了工单状态：提交-等待审批-->0\n', 11, 4, '2023-02-08 12:53:07.217800');
+INSERT INTO `app1_record` VALUES (10, '修改了工单类型：类型1-->1\n修改了工单状态：工单已退回-->1\n', 11, 4, '2023-02-08 12:57:06.054961');
+INSERT INTO `app1_record` VALUES (11, '修改了工单类型：类型2-->2\n修改了工单状态：新建-保存-->2\n', 11, 4, '2023-02-08 12:57:57.880786');
+INSERT INTO `app1_record` VALUES (12, '修改了工单类型：类型3-->类型1\n修改了工单状态：提交-等待审批-->2\n', 11, 4, '2023-02-08 12:59:41.334548');
+INSERT INTO `app1_record` VALUES (13, '修改了工单内容：测试-->测试2\n修改了工单类型：类型1-->类型3\n修改了工单状态：提交-等待审批-->已审批-等待执行\n修改了处理时间：2023-01-01 00:03:00+00:00-->2023-01-01 00:04:00+00:00\n', 11, 4, '2023-02-08 13:00:36.850394');
+INSERT INTO `app1_record` VALUES (14, '修改了工单内容：测试2-->测试3\r修改了工单类型：类型3-->类型2\r修改了工单状态：已审批-等待执行-->提交-等待审批\r', 11, 4, '2023-02-08 13:01:53.305092');
+INSERT INTO `app1_record` VALUES (15, '修改了工单内容：测试3-->测试4	\r修改了工单类型：类型2-->类型1	\r修改了工单状态：提交-等待审批-->已审批-等待执行	\r', 11, 4, '2023-02-08 13:02:28.012276');
+INSERT INTO `app1_record` VALUES (16, '修改了工单内容：测试4-->测试5    \r修改了工单类型：类型1-->类型2    \r修改了工单状态：已审批-等待执行-->提交-等待审批    \r', 11, 4, '2023-02-08 13:02:52.027777');
 
 -- ----------------------------
 -- Table structure for app1_userinfo
@@ -143,13 +174,14 @@ CREATE TABLE `app1_workorder`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `app1_workorder_village_id_085e4e56_fk_app1_village_id`(`village_id`) USING BTREE,
   CONSTRAINT `app1_workorder_village_id_085e4e56_fk_app1_village_id` FOREIGN KEY (`village_id`) REFERENCES `app1_village` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of app1_workorder
 -- ----------------------------
 INSERT INTO `app1_workorder` VALUES (1, '1', '测试', '0', '1', '2022-12-30 00:00:00.000000', '2022-12-30 07:06:50.815046', '测试', 2);
 INSERT INTO `app1_workorder` VALUES (2, '2', '测试2', '0', '2', '2022-01-01 00:00:00.000000', '2023-01-01 12:45:04.421805', '测试内容2', 2);
+INSERT INTO `app1_workorder` VALUES (4, '3', '重复测试', '1', '2', '2023-01-01 00:04:00.000000', '2023-01-20 08:04:32.072865', '测试5', 1);
 
 -- ----------------------------
 -- Table structure for auth_group
@@ -189,7 +221,7 @@ CREATE TABLE `auth_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_permission_content_type_id_codename_01ab375a_uniq`(`content_type_id`, `codename`) USING BTREE,
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -242,6 +274,10 @@ INSERT INTO `auth_permission` VALUES (45, 'Can add record', 12, 'add_record');
 INSERT INTO `auth_permission` VALUES (46, 'Can change record', 12, 'change_record');
 INSERT INTO `auth_permission` VALUES (47, 'Can delete record', 12, 'delete_record');
 INSERT INTO `auth_permission` VALUES (48, 'Can view record', 12, 'view_record');
+INSERT INTO `auth_permission` VALUES (49, 'Can add address_info', 13, 'add_address_info');
+INSERT INTO `auth_permission` VALUES (50, 'Can change address_info', 13, 'change_address_info');
+INSERT INTO `auth_permission` VALUES (51, 'Can delete address_info', 13, 'delete_address_info');
+INSERT INTO `auth_permission` VALUES (52, 'Can view address_info', 13, 'view_address_info');
 
 -- ----------------------------
 -- Table structure for auth_user
@@ -323,12 +359,13 @@ CREATE TABLE `django_content_type`  (
   `model` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `django_content_type_app_label_model_76bd3d3b_uniq`(`app_label`, `model`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_content_type
 -- ----------------------------
 INSERT INTO `django_content_type` VALUES (1, 'admin', 'logentry');
+INSERT INTO `django_content_type` VALUES (13, 'app1', 'address_info');
 INSERT INTO `django_content_type` VALUES (9, 'app1', 'message');
 INSERT INTO `django_content_type` VALUES (8, 'app1', 'permission');
 INSERT INTO `django_content_type` VALUES (12, 'app1', 'record');
@@ -351,7 +388,7 @@ CREATE TABLE `django_migrations`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -387,6 +424,7 @@ INSERT INTO `django_migrations` VALUES (28, 'app1', '0010_alter_workorder_type',
 INSERT INTO `django_migrations` VALUES (29, 'app1', '0011_record', '2023-01-04 05:43:36.325421');
 INSERT INTO `django_migrations` VALUES (30, 'app1', '0012_record_handle_time', '2023-01-04 06:12:37.940447');
 INSERT INTO `django_migrations` VALUES (31, 'app1', '0013_alter_message_time', '2023-01-04 06:16:08.401667');
+INSERT INTO `django_migrations` VALUES (32, 'app1', '0014_address_info', '2023-01-28 10:54:58.432188');
 
 -- ----------------------------
 -- Table structure for django_session
@@ -403,8 +441,19 @@ CREATE TABLE `django_session`  (
 -- ----------------------------
 -- Records of django_session
 -- ----------------------------
+INSERT INTO `django_session` VALUES ('1hxnjcs8h0rnh46vpisiw8cykjupv1le', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pIlVZ:dRsuWzyL0HHUQ90owqmm5A8YsAUk4FZWxeYnaS-uv60', '2023-02-03 07:08:17.375168');
+INSERT INTO `django_session` VALUES ('1k1gmzo95e47m04m6qi8tflw3q0v8r58', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pLjnW:wRK-lbRAzhUg6gxNKMStOBD7pT0BrExgg16NTkCeFuQ', '2023-02-11 11:55:06.731565');
+INSERT INTO `django_session` VALUES ('1k7t3upyabibe56tbn9a4s72g159icac', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pIOxE:xxlvW4BB3c1Vdyv5tCZTfOF-0uKIxPZ-lvmO3_Zw5n0', '2023-02-02 07:03:20.690018');
+INSERT INTO `django_session` VALUES ('a814fryqrz5vejhppod9i2wfkiezll74', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pLlVd:DGQJZbFcnakyypgH4no7W8_KXxYLs49aLLugzUIU_xs', '2023-02-11 13:44:45.039383');
+INSERT INTO `django_session` VALUES ('axdn3j0f38rxiirvyf510eos73lc47z3', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pPI19:lF9QoVmiLFCH4j2MITwLFYc4cUWm5qDqiGP8dn8aMgc', '2023-02-21 07:03:51.865816');
+INSERT INTO `django_session` VALUES ('i0kbbphu1l2aq0h7t38r9m6koj5cuur5', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pLkwd:LVjbr5liKxRf-CuAaIyUgmN6SjbFDEWYyrA21OUuRw0', '2023-02-11 13:08:35.907523');
+INSERT INTO `django_session` VALUES ('kdkwsdd7xh7s0c3eauvd64xjkmft8ajc', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pPFAV:2EdOISDUYiOh_evyYnjdEvoBDHnY-8seyHesNv-6ms4', '2023-02-21 04:01:19.730245');
+INSERT INTO `django_session` VALUES ('kx1027pm4nzk8x2mxuqef3od4t1q22hx', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pIOxK:xqHzEzlYA7KYtx0SgvPzuyh2IdVAhJZW-zRyzpeF1BM', '2023-02-02 07:03:26.636710');
+INSERT INTO `django_session` VALUES ('lr2r9roih9zs3xr6b5xurslnamqgd3c3', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pPjFw:kqt83fpKkKrxiKKpKCPUCZOxu4RKH9C4NdV81ACbH1U', '2023-02-22 12:08:56.928906');
 INSERT INTO `django_session` VALUES ('s3sbjkl81ig6nyfr1v59luwa4zwpmudr', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTF9:1p5SZd:GuQBxHqIdau8anPe_7qBxZZV-6-3bTItOB1ZKgBOmF8', '2022-12-28 14:17:29.503582');
 INSERT INTO `django_session` VALUES ('swq3u35c9qatel72w78uz8g0vy11cb5z', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTF9:1pBxfz:w36oikMJMao5t7lgm2jxZo-F2Dc-YY5vuokPoWXe8Ls', '2023-01-15 12:42:55.267161');
-INSERT INTO `django_session` VALUES ('xas3h9hz1fili1b3hg756g0pha7cgk7n', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTF9:1pH2y7:Ea4Iac2bDWKIjo2g-QM4PKiVxKoqmDlMyOzlt49G_YA', '2023-01-29 13:22:39.983291');
+INSERT INTO `django_session` VALUES ('xas3h9hz1fili1b3hg756g0pha7cgk7n', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pIOwu:NBgeDgcG0ayWnpboZ1JP-R1lCI1OM2uMKqToVWSebRo', '2023-02-02 07:03:00.477988');
+INSERT INTO `django_session` VALUES ('xww8b6n6eie27v8dc3ja16jrpdbtail8', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pLlJC:bzhGwk8d6TM6V3QVNJMkj-tIBKJIy931ffz9reB4Afg', '2023-02-11 13:31:54.163470');
+INSERT INTO `django_session` VALUES ('zqexsduy58uay6hly52iq0ul37vhv143', 'eyJwZXJtaXNzaW9uIjoiXHU4ZDg1XHU3ZWE3XHU3YmExXHU3NDA2XHU1NDU4IiwibmFtZSI6InJvb3QiLCJpZCI6MTEsIl9zZXNzaW9uX2V4cGlyeSI6MH0:1pLkvt:lrcDPUqMLwBNBqPr3h8-o-xdq19STRhWGM97TOdBF4c', '2023-02-11 13:07:49.166714');
 
 SET FOREIGN_KEY_CHECKS = 1;

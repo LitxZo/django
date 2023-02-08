@@ -7,6 +7,7 @@
     lay-filter="breadcrumb"
     style="visibility: visible"
   >
+    
     <a style="text-decoration: none" href="/index">首页</a
     ><span lay-separator="">/</span>
   </div>
@@ -17,99 +18,46 @@
     <div class="layui-col-md6" style="margin: 5px; width: 70%">
       <div class="layui-card" style="margin: 5px">
         <div class="layui-card-body">
-          <div id="map"></div>
+          <div id="allmap"></div>
+          <div id="r-result">
+
+              <input type="button" value="获取我的位置" onclick="get_location()"/>
+          {#    <img src="http://127.0.0.1:8000/display">#}
+          {#    <a href='http://www.baidu.com'>详细信息</a>#}
+
+          </div>
         </div>
       </div>
     </div>
     <div class="layui-col-md3" style="margin: 5px">
       <div class="layui-card" style="margin: 10px">
-        <form action="" method="post">
-          <input
-            type="hidden"
-            name="csrfmiddlewaretoken"
-            value="9ebc9v9I8cHIrytS870DKBVUGJ6Nm1KfS14PYRg26CiOlddnuN2tToe77099QuoP"
-          />
-          <input type="hidden" name="type" value="role" />
-          <div class="layui-card-header">
-            <i class="fa fa-users" aria-hidden="true"></i> 选项
-          </div>
-          <div class="layui-card-body" style="padding: 0">
-            <span style="color: #9d9d9d; padding-left: 15px"
-              ><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-              菜单1,可添加功能</span
-            >
-            <table class="layui-table">
-              <thead>
-                <tr style="background-color: #00968817">
-                  <th>选项</th>
-                  <th>选项</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="">
-                  <td>
-                    <a href="?rid=1">选项</a>
-                  </td>
-                  <td>
-                    <input type="checkbox" name="roles" value="1" />
-                  </td>
-                </tr>
-
-                <tr class="">
-                  <td>
-                    <a href="?rid=2">选项</a>
-                  </td>
-                  <td>
-                    <input type="checkbox" name="roles" value="2" />
-                  </td>
-                </tr>
-
-                <tr class="">
-                  <td>
-                    <a href="?rid=3">选项</a>
-                  </td>
-                  <td>
-                    <input type="checkbox" name="roles" value="3" />
-                  </td>
-                </tr>
-
-                <tr class="">
-                  <td>
-                    <a href="?rid=4">选项</a>
-                  </td>
-                  <td>
-                    <input type="checkbox" name="roles" value="4" />
-                  </td>
-                </tr>
-
-                <tr class="">
-                  <td>
-                    <a href="?rid=6">选项</a>
-                  </td>
-                  <td>
-                    <input type="checkbox" name="roles" value="6" />
-                  </td>
-                </tr>
-                <tr class="">
-                  <td>
-                    <a href="?rid=6">选项</a>
-                  </td>
-                  <td>
-                    <input type="checkbox" name="roles" value="6" />
-                  </td>
-                </tr>
-                <tr class="">
-                  <td>
-                    <a href="?rid=6">选项</a>
-                  </td>
-                  <td>
-                    <input type="checkbox" name="roles" value="6" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </form>
+        <div class="layui-card-header" style="font-size: 15px">快速使用</div>
+        <ul class="layui-timeline" style="margin: 10px">
+          <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis" >&#xe63f;</i>
+            <div class="layui-timeline-content layui-text">
+              <a class="layui-timeline-title" style="font-size: 17px" href="/member">派发指令</a>
+            </div>
+          </li>
+          <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+            <div class="layui-timeline-content layui-text">
+              <a class="layui-timeline-title" style="font-size: 17px" href="/chat_list">收信箱</a>
+            </div>
+          </li>
+          <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+            <div class="layui-timeline-content layui-text">
+              <a class="layui-timeline-title" style="font-size: 17px" href="/workorder/list">工单列表</a>
+            </div>
+          </li>
+          <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+            <div class="layui-timeline-content layui-text">
+              <a class="layui-timeline-title" style="font-size: 17px" href="/meeting">视频会议</a>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
     {% comment %}
@@ -121,24 +69,59 @@
     {% endcomment %}
   </div>
 </div>
-<script
-      type="text/javascript"
-      src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=V9G5pDUaSw5wmPs24rpUoVtEC9pLU2DA"
-    ></script>
-    <script>
+<script>
+  var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(118.3088230000, 32.3002390000), 18);
+    map.enableScrollWheelZoom(true);
+    var navigationControl = new BMap.NavigationControl({
+        // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+    });
+
+    map.addControl(navigationControl);
+
+    function get_location() {
+
+      var address_latitude ={{ address_latitude |safe}};
+      var address_longitude ={{ address_longitude|safe }};
+      var address_data ={{ address_data |safe}};
+      var address_url ={{ address_url |safe}};
+      {#alert(address_latitude)#}
+
+      var point = []; //存放标注点经纬信息的数组
+      var marker = []; //存放标注点对象的数组
+      for (var i = 0; i < address_longitude.length; i++) {
+          point[i] = new BMap.Point(address_longitude[i], address_latitude[i]); //循环生成新的地图点
+          marker[i] = new BMap.Marker(point[i]); //按照地图点坐标生成标记
+          map.addOverlay(marker[i]);
+      }
+
       
 
-      var map = new BMapGL.Map('map') // 创建地图实例
-      map.enableScrollWheelZoom(true) //开启鼠标滚轮缩放
-      map.centerAndZoom('南通市贲集村', 12) // 初始化地图,设置中心点坐标和地图级别
 
-      map.setHeading(64.5) //设置地图旋转角度
-      map.setTilt(73) //设置地图的倾斜角度
+      for (i = 0; i < marker.length; i++) {
+          (function () {
+              var index = i;
+              marker[index].addEventListener('click', function () {
+                var opts = {
+                  width : 555,     // 信息窗口宽度
+                  height: 365,     // 信息窗口高度
+                  title : address_data[index]  // 信息窗口标题
+              }
+                 
+                  var infoWindow = new BMap.InfoWindow(
+                  "<img style='width:550px;height:360px'  src='"+address_url[index]+"'>", opts);  // 创建信息窗口对象
+                  
 
-      // 禁止地图旋转和倾斜可以通过配置项进行设置
-      var map = new BMapGL.Map('allmap', {
-        enableRotate: false,
-        enableTilt: false,
-      })
-    </script>
+                  this.openInfoWindow(infoWindow);
+              });
+          })();
+      }
+  }
+</script>
+
 {% endblock %}

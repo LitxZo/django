@@ -1,5 +1,6 @@
 from app1.models import UserInfo
 from app1.utils.ebcrypt import md5
+from app1.views import init
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
@@ -59,7 +60,7 @@ def login(request):
         
         
 
-        return render(request, "index.html")
+        return init.index(request)
 
 
 def logout(request):

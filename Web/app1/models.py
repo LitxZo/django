@@ -62,3 +62,10 @@ class Record(models.Model):
     number = models.ForeignKey(
         verbose_name="工单id", to="WorkOrder", to_field="id", on_delete=models.CASCADE)
     handle_time = models.DateTimeField(auto_now_add=True, verbose_name='处理时间')
+
+
+class address_info(models.Model):
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+    data = models.CharField(max_length=255)
+    url = models.CharField(max_length=255)

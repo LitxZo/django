@@ -36,7 +36,7 @@ urlpatterns = [
     path("member/", chat.member_list),
     path("member2/", chat.member_list2),
     path("chat_list/", chat.chat_list, name="chat_list"),
-    path("chat_list/", chat.chat_list2, name="chat_list2"),
+    path("chat_list2/", chat.chat_list2, name="chat_list2"),
     path("no_permission/", permission.no_permission, name="no_permission"),
     path("no_permission2/", permission.no_permission2, name="no_permission2"),
     path("chat/<int:id>/send", chat.chat_send),
@@ -52,5 +52,7 @@ urlpatterns = [
     path("workorder2/<int:id>/handle", workorder.handle2),
     path("workorder/<int:id>/edit", workorder.edit),
     path("workorder2/<int:id>/edit", workorder.edit2),
+    path('display/', init.video),
+
 
 ]

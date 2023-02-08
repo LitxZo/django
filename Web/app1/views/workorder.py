@@ -185,14 +185,65 @@ def edit(request, id):
         return redirect(reverse("no_permission"))
 
     workorder_id = id
+    handler_id = request.session.get("id")
+    handler = UserInfo.objects.filter(id=handler_id).first()
+    handler_name = request.session.get("name")
+    record = ""
     workorder = WorkOrder.objects.filter(id=workorder_id).first()
+    workorder_dict = {}
+
+    workorder_dict["type"] = workorder.get_type_display()
+    workorder_dict["status"] = workorder.get_status_display()
+    workorder_dict["do_time"] = workorder.do_time
+    workorder_dict["content"] = workorder.content
+
+
     if request.method == "GET":
         form = edit_form(instance=workorder)
         return render(request, "workorder_edit.html", {"workorder": workorder, "form": form})
 
     form = edit_form(data=request.POST, instance=workorder)
+
+    
+    
     if form.is_valid():
+        new_workorder_dict = form.cleaned_data
+        if new_workorder_dict["type"] == "0":
+            new_workorder_dict["type"] = "类型1"
+        elif new_workorder_dict["type"] == "1":
+            new_workorder_dict["type"] = "类型2"
+        elif new_workorder_dict["type"] == "2":
+            new_workorder_dict["type"] = "类型3"
+        elif new_workorder_dict["type"] == "3":
+            new_workorder_dict["type"] = "类型4"
+        if new_workorder_dict["status"] == "0" :
+            new_workorder_dict["status"] = '工单已退回'
+        elif new_workorder_dict["status"] == "1" :
+            new_workorder_dict["status"] = '新建-保存'
+        elif new_workorder_dict["status"] == "2" :
+            new_workorder_dict["status"] = '提交-等待审批'
+        elif new_workorder_dict["status"] == "3" :
+            new_workorder_dict["status"] = '已审批-等待执行'
+        elif new_workorder_dict["status"] == "4" :
+            new_workorder_dict["status"] = '已执行-等待确认'
+        elif new_workorder_dict["status"] == "5" :
+            new_workorder_dict["status"] = '工单已完成'
+
+        if workorder_dict["content"] != new_workorder_dict["content"]:
+            record += "修改了工单内容：" + workorder_dict["content"] +"-->"+ new_workorder_dict["content"] + "\r"
+        if workorder_dict["type"] != new_workorder_dict["type"]:
+            record += "修改了工单类型：" + workorder_dict["type"] +"-->"+ new_workorder_dict["type"] + "\r"
+        if workorder_dict["status"] != new_workorder_dict["status"]:
+            record += "修改了工单状态："  + workorder_dict["status"] +"-->"+ new_workorder_dict["status"] + "\r"
+        if workorder_dict["do_time"] != new_workorder_dict["do_time"]:
+            record += "修改了处理时间：" + str(workorder_dict["do_time"]) +"-->"+ str(new_workorder_dict["do_time"]) + "\r"
+        print(record)
         form.save()
+        Record.objects.create(
+            handler=handler,
+            content=record,
+            number=workorder,
+        )
         return redirect(reverse("workorder_list"))
 
 def edit2(request, id):

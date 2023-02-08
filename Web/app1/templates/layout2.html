@@ -19,7 +19,7 @@
     <script src="{% static '/layui/layui.js' %}"></script>
 
     <style>
-        #map{
+        #allmap{
           width:100%%;
           height:500px;
           margin:0;
@@ -90,7 +90,14 @@
           color: #666;
           box-shadow: 0 2px 6px 0 rgba(27, 142, 236, 0.5);
       }
+      #r-result {
+        width: 100%;
+        font-size: 14px;
+      }
     </style>
+    <script type="text/javascript"
+    src="http://api.map.baidu.com/api?v=2.0&ak=V9G5pDUaSw5wmPs24rpUoVtEC9pLU2DA">
+    </script>
     <!--某些单独的页面需要用自己的css-->
     {% block css %}{% endblock %}
   </head>
@@ -237,6 +244,9 @@
            },
             })
       })})
+
+
+      
     </script>
 
     {% block js %} {% endblock %}
