@@ -84,11 +84,11 @@ DATABASES = {
         # 端口
         'PORT': 3306,
         # 数据库名
-        'NAME': 'Vmanage',
+        'NAME': 'vmanage',
         # 用户
         'USER': 'root',
         # 密码
-        'PASSWORD': '123456'
+        'PASSWORD': 'shouwangpigu233'
     }
 }
 

@@ -79,6 +79,6 @@ def video(request):
     例如：<img src='https://ip:port/uri' >
     """
     # 视频流相机对象
-    camera = cv2.VideoCapture("D:\\vs project\Social-Distancing-Analyser-COVID-19-master\\videos\\OxfordTownCentreDataset.mp4")
+    camera = cv2.VideoCapture("/Users/litxzo/Desktop/video.mp4")
     # 使用流传输传输视频流
     return StreamingHttpResponse(gen_display(camera), content_type='multipart/x-mixed-replace; boundary=frame')
