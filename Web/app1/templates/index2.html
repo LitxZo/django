@@ -30,41 +30,63 @@
     <div class="layui-col-md3" style="margin: 5px">
       <div class="layui-row grid-demo grid-demo-bg1">
         <div class="layui-col-md12"><div class="layui-card" style="margin: 10px">
-          <div class="layui-card-header" style="font-size: 15px">快速使用</div>
-          <ul class="layui-timeline" style="margin: 10px">
-            <li class="layui-timeline-item">
-              <i class="layui-icon layui-timeline-axis" >&#xe63f;</i>
-              <div class="layui-timeline-content layui-text">
-                <a class="layui-timeline-title" style="font-size: 17px" href="/member2">派发指令</a>
-              </div>
-            </li>
-            <li class="layui-timeline-item">
-              <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-              <div class="layui-timeline-content layui-text">
-                <a class="layui-timeline-title" style="font-size: 17px" href="/chat_list2">收信箱</a>
-              </div>
-            </li>
-            <li class="layui-timeline-item">
-              <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-              <div class="layui-timeline-content layui-text">
-                <a class="layui-timeline-title" style="font-size: 17px" href="/workorder2/list">工单列表</a>
-              </div>
-            </li>
-            <li class="layui-timeline-item">
-              <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-              <div class="layui-timeline-content layui-text">
-                <a class="layui-timeline-title" style="font-size: 17px" href="/meeting">视频会议</a>
-              </div>
-            </li>
-          </ul>
+          <div class="layui-card-header" style="font-size: 18px">快速使用</div>
+          <div class="layui-card" style="margin: 10px">
+            <ul class="layui-timeline" style="margin: 10px">
+              <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis" >&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                  <a class="layui-timeline-title" style="font-size: 17px" href="/member2">派发指令</a>
+                </div>
+              </li>
+              <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                  <a class="layui-timeline-title" style="font-size: 17px" href="/chat_list2">收信箱</a>
+                </div>
+              </li>
+              <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                  <a class="layui-timeline-title" style="font-size: 17px" href="/workorder2/list">工单列表</a>
+                </div>
+              </li>
+              <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                  <a class="layui-timeline-title" style="font-size: 17px" href="/meeting">视频会议</a>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="layui-col-md12">
           <div class="layui-card" style="margin: 10px">
-            <div class="layui-card-header" style="font-size: 15px">摄像头信息</div>
+            <div class="layui-card-header" style="font-size: 18px">摄像头信息</div>
             <div class="layui-card-body">
-              <div style="margin:5px">摄像头名称:<span id="c_id"></span></div>
-              <div style="margin:5px">摄像头经度:<span id="c_longitude"></span></div>
-              <div style="margin:5px">摄像头维度:<span id="c_latitude"></span></div>
+              <ul class="layui-timeline" style="margin: 10px">
+                <li class="layui-timeline-item">
+                  <i class="layui-icon layui-timeline-axis" >&#xe63f;</i>
+                  <div class="layui-timeline-content layui-text" style="font-size: 17px">
+                    摄像头名称:   <span id="c_id" style="font-size: 15px"></span>
+                  </div>
+                </li>
+                <li class="layui-timeline-item">
+                  <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                  <div class="layui-timeline-content layui-text" style="font-size: 17px">
+                    摄像头经度:   <span id="c_longitude" style="font-size: 15px"></span>
+                  </div>
+                </li>
+                <li class="layui-timeline-item">
+                  <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                  <div class="layui-timeline-content layui-text" style="font-size: 17px">
+                    摄像头维度:   <span id="c_latitude" style="font-size: 15px"></span>
+                  </div>
+                </li>
+              </ul>
+              {% comment %} <div style="margin:5px">摄像头名称:   <span id="c_id" style="font-size: 15px"></span></div>
+              <div style="margin:5px">摄像头经度:   <span id="c_longitude" style="font-size: 15px"></span></div>
+              <div style="margin:5px">摄像头维度:   <span id="c_latitude" style="font-size: 15px"></span></div> {% endcomment %}
             </div>
           </div>
         </div>
@@ -88,7 +110,7 @@
       
 
       var map = new BMap.Map("allmap");
-    map.centerAndZoom(new BMap.Point(118.3088230000, 32.3002390000), 18);
+    map.centerAndZoom(new BMap.Point(120.68879744640559,32.56471106530438), 18);
     map.enableScrollWheelZoom(true);
     var navigationControl = new BMap.NavigationControl({
         // 靠左上角位置
@@ -132,7 +154,9 @@
                  
                   var infoWindow = new BMap.InfoWindow(
                   "<img style='width:550px;height:360px'  src='"+address_url[index]+"'>", opts);  // 创建信息窗口对象
-                  
+                  document.getElementById('c_id').innerHTML = address_data[index] ;
+                  document.getElementById('c_longitude').innerHTML = address_longitude[index] ;
+                  document.getElementById('c_latitude').innerHTML = address_latitude[index] ;
 
                   this.openInfoWindow(infoWindow);
               });
