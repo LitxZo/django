@@ -53,7 +53,11 @@ class WorkOrder(models.Model):
     content = models.CharField(max_length=300, verbose_name='工单内容')
     village = models.ForeignKey(
         verbose_name="所属村落", to="village", to_field="id", default=1, on_delete=models.CASCADE)
-
+    
+class File(models.Model):
+    workorder_number = models.CharField(max_length=10, verbose_name='工单号', null= False)
+    file_name = models.CharField(max_length=50 ,verbose_name='文件名')
+    file_path = models.CharField(max_length=100, verbose_name='文件目录')
 
 class Record(models.Model):
     handler = models.ForeignKey(
