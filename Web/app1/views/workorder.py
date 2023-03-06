@@ -4,6 +4,7 @@ from app1.utils.ebcrypt import md5
 from django.core.exceptions import ValidationError
 from django.shortcuts import HttpResponse, redirect, render
 from django.urls import reverse
+from django.http import FileResponse
 
 from django import forms
 
@@ -407,3 +408,60 @@ def edit2(request, id):
             number=workorder,
         )
         return redirect(reverse("workorder_list2"))
+
+
+
+def file_lis1(request, num):
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "贲集村管理员":
+        return redirect(reverse("no_permission"))
+    
+    workorder_num = num
+    file_list = File.objects.filter(workorder_number = workorder_num).all()
+    return render(request, "file_list.html",{"file_list":file_list})
+    
+
+def file_lis2(request, num):
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员":
+        return redirect(reverse("no_permission"))
+    
+    workorder_num = num
+    file_list = File.objects.filter(workorder_number = workorder_num).all()
+    return render(request, "file_list2.html",{"file_list":file_list})
+
+def file_download(rerquest, id):
+     workorder_num = File.objects.filter(id = id).first().workorder_number
+     file_name = File.objects.filter(id = id).first().file_name
+     path = os.path.join('./upload',str(workorder_num), file_name)
+     file = open(path, 'rb')
+     response = FileResponse(file)
+     response['Content-Type'] = 'application/octet-stream'
+     response['Content-Disposition'] = "attachment;filename=" + file_name # 注意filename不支持中文
+     return response
+
+
+def file_delete1(request, id):
+    if File.objects.filter(id =id).exists() :
+        workorder_num = File.objects.filter(id = id).first().workorder_number
+        file_name = File.objects.filter(id = id).first().file_name
+        path = os.path.join('./upload',str(workorder_num), file_name)
+        os.remove(path)
+        File.objects.filter(id = id).delete()
+        return redirect("/workorder/"+str(workorder_num)+"/filelist")
+    else :
+        return redirect("/workorder/"+str(workorder_num)+"/filelist")
+        
+
+def file_delete2(request, id):
+    if File.objects.filter(id =id).exists() :
+        workorder_num = File.objects.filter(id = id).first().workorder_number
+        file_name = File.objects.filter(id = id).first().file_name
+        path = os.path.join('./upload',str(workorder_num), file_name)
+        os.remove(path)
+        File.objects.filter(id = id).delete()
+        return redirect("/workorder2/"+str(workorder_num)+"/filelist")
+    else :
+        return redirect("/workorder2/"+str(workorder_num)+"/filelist")
+        
+
+
+

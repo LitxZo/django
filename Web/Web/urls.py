@@ -53,6 +53,10 @@ urlpatterns = [
     path("workorder/<int:id>/edit", workorder.edit),
     path("workorder2/<int:id>/edit", workorder.edit2),
     path('display/', init.video),
-
+    path("workorder/<int:num>/filelist",workorder.file_lis1),
+    path("workorder2/<int:num>/filelist",workorder.file_lis2),
+    path("filedownload/<int:id>/",workorder.file_download),
+    path("filedelete1/<int:id>", workorder.file_delete1),
+    path("filedelete2/<int:id>", workorder.file_delete2),
 
 ]
