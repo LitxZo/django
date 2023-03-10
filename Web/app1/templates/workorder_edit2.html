@@ -21,14 +21,14 @@
 
   <div class="right-t-body">
     <div class="layui-row">
-      <div class="layui-col-md6">
+      <div class="layui-col-md8">
         <div class="layui-card" style="margin: 20px">
           <div class="layui-card-header">编辑工单</div>
           <div class="layui-card-body">
             <form class="layui-form" method="post" enctype="multipart/form-data">
 
 
-              {% csrf_token %} {% for field in form %}
+              {% csrf_token %} {{form.media}}{% for field in form %}
               <div class="layui-form-item">
                 <label class="layui-form-label"
                   >{{field.label}}
@@ -41,7 +41,6 @@
                 <span style="color: red">{{ field.errors.0 }}</span>
               </div>
               {% endfor %}
-              {{ fileform.as_p }}
               <div class="layui-form-item">
                 <div class="layui-input-block">
                   <button

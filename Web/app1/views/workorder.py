@@ -6,17 +6,17 @@ from django.shortcuts import HttpResponse, redirect, render
 from django.urls import reverse
 from django.http import FileResponse
 
+from ckeditor.fields import RichTextFormField
+
 from django import forms
 
 
 class workorder_form(forms.ModelForm):
+    content = RichTextFormField(label='内容',config_name='default')
     class Meta:
         model = WorkOrder
         fields = ["number", "title", "type",
                   "status", "do_time", "content", "village"]
-        widgets = {
-            "content": forms.Textarea(attrs={"class": "layui-textarea"})
-        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -35,7 +35,7 @@ class workorder_form(forms.ModelForm):
 
 class file_form(forms.Form):
     file = forms.FileField(
-        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        widget=forms.ClearableFileInput(attrs={"multiple": True, "lay-verify": "file"}),
         label="请选择文件",
     )
     
@@ -148,10 +148,11 @@ def workorder_list2(request):
 
 
 class record_form(forms.Form):
-    content = forms.CharField(
-        label="记录内容",
-        widget=forms.Textarea(attrs={"class": "layui-textarea"})
-    )
+    content = RichTextFormField(label='内容',config_name='default')
+    # content = forms.CharField(
+    #     label="记录内容",
+    #     widget=forms.Textarea(attrs={"class": "layui-textarea"})
+    # )
 
 
 def handle(request, id):
@@ -217,11 +218,11 @@ def record2(request, id):
 
 class edit_form(forms.ModelForm):
     class Meta:
+        content = RichTextFormField(label='内容',config_name='default')
         model = WorkOrder
         fields = ["number", "title", "type",
                   "status", "do_time", "content", "village"]
         widgets = {
-            "content": forms.Textarea(attrs={"class": "layui-textarea"}),
             "number": forms.TextInput(attrs={"readonly": True}),
         }
 
@@ -256,7 +257,7 @@ def edit(request, id):
     if request.method == "GET":
         form = edit_form(instance=workorder)
         fileform = file_form()
-        return render(request, "workorder_edit.html", {"workorder": workorder, "form": form, "fileform": fileform})
+        return render(request, "workorder_edit.html", {"workorder": workorder, "form": form})
 
     form = edit_form(data=request.POST, instance=workorder)
     fileform = file_form(request.POST, request.FILES)
@@ -264,25 +265,7 @@ def edit(request, id):
   
     
     if form.is_valid():
-        if fileform.is_valid():
-            files = request.FILES.getlist("file")
-            path = os.path.join('./upload', workorder_number)
-            folder = os.path.exists(path)
-            print(workorder_number, path)
-            if not folder:                   #判断是否存在文件夹如果不存在则创建为文件夹
-                os.makedirs(path)            #makedirs 创建文件时如果路径不存在会创建这个路径
-
-            for file in files:
-                # 写入到服务器本地
-                destination = open(os.path.join(path, file.name), 'wb+')
-                for chunk in file.chunks():
-                    destination.write(chunk)
-                destination.close()
-                File.objects.create(
-                    workorder_number = workorder_number,
-                    file_name = file.name,
-                    file_path = os.path.join(path, file.name)
-                )
+        
 
         new_workorder_dict = form.cleaned_data
         if new_workorder_dict["type"] == "0":
@@ -346,30 +329,12 @@ def edit2(request, id):
     if request.method == "GET":
         form = edit_form(instance=workorder)
         fileform = file_form()
-        return render(request, "workorder_edit2.html", {"workorder": workorder, "form": form, "fileform":fileform})
+        return render(request, "workorder_edit2.html", {"workorder": workorder, "form": form})
 
     form = edit_form(data=request.POST, instance=workorder)
     fileform = file_form(request.POST, request.FILES)
     if form.is_valid():
-        if fileform.is_valid():
-            files = request.FILES.getlist("file")
-            path = os.path.join('./upload', workorder_number)
-            folder = os.path.exists(path)
-            print(workorder_number, path)
-            if not folder:                   #判断是否存在文件夹如果不存在则创建为文件夹
-                os.makedirs(path)            #makedirs 创建文件时如果路径不存在会创建这个路径
-
-            for file in files:
-                # 写入到服务器本地
-                destination = open(os.path.join(path, file.name), 'wb+')
-                for chunk in file.chunks():
-                    destination.write(chunk)
-                destination.close()
-                File.objects.create(
-                    workorder_number = workorder_number,
-                    file_name = file.name,
-                    file_path = os.path.join(path, file.name)
-                )
+       
 
         new_workorder_dict = form.cleaned_data
         if new_workorder_dict["type"] == "0":
@@ -414,19 +379,69 @@ def edit2(request, id):
 def file_lis1(request, num):
     if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "贲集村管理员":
         return redirect(reverse("no_permission"))
-    
     workorder_num = num
-    file_list = File.objects.filter(workorder_number = workorder_num).all()
-    return render(request, "file_list.html",{"file_list":file_list})
+    if request.method == "GET":
+        fileform = file_form()
+        file_list = File.objects.filter(workorder_number = workorder_num).all()
+        return render(request, "file_list.html",{"file_list":file_list, "fileform": fileform})
     
+    fileform = file_form(request.POST, request.FILES)
+    
+
+    if fileform.is_valid():
+        files = request.FILES.getlist("file")
+        path = os.path.join('./upload', str(workorder_num))
+        folder = os.path.exists(path)
+        print(workorder_num, path)
+        if not folder:                   #判断是否存在文件夹如果不存在则创建为文件夹
+            os.makedirs(path)            #makedirs 创建文件时如果路径不存在会创建这个路径
+
+        for file in files:
+            # 写入到服务器本地
+            destination = open(os.path.join(path, file.name), 'wb+')
+            for chunk in file.chunks():
+                destination.write(chunk)
+            destination.close()
+            File.objects.create(
+                workorder_number = workorder_num,
+                file_name = file.name,
+                file_path = os.path.join(path, file.name)
+            )
+    return redirect("/workorder/"+str(workorder_num)+"/filelist")
 
 def file_lis2(request, num):
     if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员":
         return redirect(reverse("no_permission"))
     
     workorder_num = num
-    file_list = File.objects.filter(workorder_number = workorder_num).all()
-    return render(request, "file_list2.html",{"file_list":file_list})
+    if request.method == "GET":
+        fileform = file_form()
+        file_list = File.objects.filter(workorder_number = workorder_num).all()
+        return render(request, "file_list2.html",{"file_list":file_list, "fileform": fileform})
+    
+    fileform = file_form(request.POST, request.FILES)
+    
+
+    if fileform.is_valid():
+        files = request.FILES.getlist("file")
+        path = os.path.join('./upload', str(workorder_num))
+        folder = os.path.exists(path)
+        print(workorder_num, path)
+        if not folder:                   #判断是否存在文件夹如果不存在则创建为文件夹
+            os.makedirs(path)            #makedirs 创建文件时如果路径不存在会创建这个路径
+
+        for file in files:
+            # 写入到服务器本地
+            destination = open(os.path.join(path, file.name), 'wb+')
+            for chunk in file.chunks():
+                destination.write(chunk)
+            destination.close()
+            File.objects.create(
+                workorder_number = workorder_num,
+                file_name = file.name,
+                file_path = os.path.join(path, file.name)
+            )
+    return redirect("/workorder2/"+str(workorder_num)+"/filelist")
 
 def file_download(rerquest, id):
      workorder_num = File.objects.filter(id = id).first().workorder_number

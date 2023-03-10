@@ -61,6 +61,21 @@
         </table>
       </div>
     </div>
+    <div>
+      <form class="layui-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %} {% for field in fileform %}
+        <div class="layui-form-item">
+          <div class="layui-input-block">上传新文件：{{ field }}
+            <input
+          type="submit"
+          value="上传"
+        >
+          </div>
+        </div>
+        {% endfor %}
+
+      </form>
+    </div>
   </div>
 </div>
 

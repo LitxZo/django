@@ -228,7 +228,17 @@
         var element = layui.element
       })
       layui.use('form', function () {
-        var form = layui.form
+        var form = layui.form;
+        form.verify({
+          file: function(value){
+          }
+          ,address: function(value){
+              if(value.length == 0){
+                  return '地址不能为空';
+              }
+          }
+          
+      });
       })
       layui.use('layer', function() {
         var layer = layui.layer;
@@ -246,6 +256,15 @@
               self.location=DELETE_URL;//确定按钮跳转地址
            },
             })})})
+      layui.use('layedit', function(){
+        var layedit = layui.layedit; //建立编辑器
+        layedit.build('rtext', {
+          tool: ['strong' //加粗
+          ,'italic' //斜体
+          ,'underline','face', 'link', 'unlink', '|', 'left', 'center', 'right']
+          
+        });
+      });
       
 
 

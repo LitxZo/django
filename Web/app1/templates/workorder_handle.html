@@ -20,14 +20,14 @@
   <div class="layui-card" style="margin: 5px">
     <div class="layui-card-body">
       <div class="layui-card-header"></div>
-      <form class="layui-form" method="post">
-              {% csrf_token %}
+      <form  method="post">
+        {% csrf_token %}
 
-
+        {{form.media}}
         {% for field in form %}
-        <div class="layui-form-item layui-form-text">
+        <div >
           <label class="layui-form-label">{{field.label}}</label>
-          <div class="layui-input-block">{{field}}</div>
+          {{field}}
         </div>
         {% endfor%}
         <div class="layui-form-item">

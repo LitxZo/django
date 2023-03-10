@@ -1,5 +1,6 @@
 from django.db import models
 
+from ckeditor.fields import RichTextField
 
 class UserInfo(models.Model):
     name = models.CharField(verbose_name="用户名", max_length=32)
@@ -50,7 +51,7 @@ class WorkOrder(models.Model):
         max_length=10, choices=status_choices, default='0', verbose_name='工单状态')
     do_time = models.DateTimeField(default='', verbose_name='安排时间')
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-    content = models.CharField(max_length=300, verbose_name='工单内容')
+    content = RichTextField( verbose_name='工单内容')
     village = models.ForeignKey(
         verbose_name="所属村落", to="village", to_field="id", default=1, on_delete=models.CASCADE)
     
@@ -62,7 +63,7 @@ class File(models.Model):
 class Record(models.Model):
     handler = models.ForeignKey(
         verbose_name="处理人", to="UserInfo", to_field="id", on_delete=models.CASCADE)
-    content = models.CharField(max_length=300, verbose_name='处理记录')
+    content = RichTextField(verbose_name='处理记录')
     number = models.ForeignKey(
         verbose_name="工单id", to="WorkOrder", to_field="id", on_delete=models.CASCADE)
     handle_time = models.DateTimeField(auto_now_add=True, verbose_name='处理时间')

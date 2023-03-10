@@ -21,12 +21,14 @@
 
   <div class="right-t-body">
     <div class="layui-row">
-      <div class="layui-col-md6">
+      <div class="layui-col-md8">
         <div class="layui-card" style="margin: 20px">
           <div class="layui-card-header">新建工单</div>
           <div class="layui-card-body">
-            <form class="layui-form" method="post" enctype="multipart/form-data">
-              {% csrf_token %} {% for field in form %}
+            <form  method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{form.media}}
+              {% for field in form %}
               <div class="layui-form-item">
                 <label class="layui-form-label"
                   >{{field.label}}
@@ -35,12 +37,25 @@
                     style="float: left"
                   ></div
                 ></label>
-                <div class="layui-input-block">{{ field }}</div>
+                <div class="layui-input-block">
+                  {{ field }}</div>
                 <span style="color: red">{{ field.errors.0 }}</span>
               </div>
               {% endfor %}
+            
+              {% comment %} {% for file in fileform %}
+              <div class="layui-form-item">
+                <label class="layui-form-label"
+                  >请选择文件
+                  <div
+                    class="layui-form-mid layui-word-aux"
+                    style="float: left"
+                  ></div
+                ></label>
+                <div class="layui-input-block">{{ file }}</div>
+              {% endfor %} {% endcomment %}
 
-              {{ fileform.as_p }}
+
             
               <div class="layui-form-item">
                 <div class="layui-input-block">
