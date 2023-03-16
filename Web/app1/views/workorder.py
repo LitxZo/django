@@ -43,33 +43,36 @@ def workorder_create(request):
 
     if request.method == "GET":
         form = workorder_form()
-        fileform = file_form()
-        return render(request, "workorder_add.html", {"form": form, "fileform": fileform})
+        # fileform = file_form()
+        return render(request, "workorder_add.html", {"form": form})
+    creator = request.session.get("id")
     form = workorder_form(data=request.POST)
-    fileform = file_form(request.POST, request.FILES)
-    
+    # fileform = file_form(request.POST, request.FILES)
     if form.is_valid():
-        if fileform.is_valid():
-            files = request.FILES.getlist("file")
-            workorder_id = request.POST.get("number")
-            path = os.path.join('./upload', workorder_id)
-            folder = os.path.exists(path)
-            print(workorder_id, path)
-            if not folder:                   #判断是否存在文件夹如果不存在则创建为文件夹
-                os.makedirs(path)            #makedirs 创建文件时如果路径不存在会创建这个路径
+        # if fileform.is_valid():
+        #     files = request.FILES.getlist("file")
+        #     workorder_id = request.POST.get("number")
+        #     path = os.path.join('./upload', workorder_id)
+        #     folder = os.path.exists(path)
+        #     print(workorder_id, path)
+        #     if not folder:                   #判断是否存在文件夹如果不存在则创建为文件夹
+        #         os.makedirs(path)            #makedirs 创建文件时如果路径不存在会创建这个路径
 
-            for file in files:
-                # 写入到服务器本地
-                destination = open(os.path.join(path, file.name), 'wb+')
-                for chunk in file.chunks():
-                    destination.write(chunk)
-                destination.close()
-                File.objects.create(
-                    workorder_number = workorder_id,
-                    file_name = file.name,
-                    file_path = os.path.join(path, file.name)
-                )
+        #     for file in files:
+        #         # 写入到服务器本地
+        #         destination = open(os.path.join(path, file.name), 'wb+')
+        #         for chunk in file.chunks():
+        #             destination.write(chunk)
+        #         destination.close()
+        #         File.objects.create(
+        #             workorder_number = workorder_id,
+        #             file_name = file.name,
+        #             file_path = os.path.join(path, file.name)
+        #         )
+        workorder_num = form.cleaned_data["number"]
         form.save()
+        print(creator)
+        WorkOrder.objects.filter(number = workorder_num).update(creator = creator)
         return redirect(reverse("workorder_list"))
     
 
@@ -78,38 +81,43 @@ def workorder_create2(request):
 
     if request.method == "GET":
         form = workorder_form()
-        fileform = file_form()
-        return render(request, "workorder_add.html", {"form": form, "fileform": fileform})
+        # fileform = file_form()
+        return render(request, "workorder_add.html", {"form": form})
     form = workorder_form(data=request.POST)
-    fileform = file_form(request.POST, request.FILES)
+    creator = request.session.get("id")
+    # fileform = file_form(request.POST, request.FILES)
     
     if form.is_valid():
-        if fileform.is_valid():
-            files = request.FILES.getlist("file")
-            workorder_id = request.POST.get("number")
-            path = os.path.join('./upload', workorder_id)
-            folder = os.path.exists(path)
-            print(workorder_id, path)
-            if not folder:                   #判断是否存在文件夹如果不存在则创建为文件夹
-                os.makedirs(path)            #makedirs 创建文件时如果路径不存在会创建这个路径
+        # if fileform.is_valid():
+        #     files = request.FILES.getlist("file")
+        #     workorder_id = request.POST.get("number")
+        #     path = os.path.join('./upload', workorder_id)
+        #     folder = os.path.exists(path)
+        #     print(workorder_id, path)
+        #     if not folder:                   #判断是否存在文件夹如果不存在则创建为文件夹
+        #         os.makedirs(path)            #makedirs 创建文件时如果路径不存在会创建这个路径
 
-            for file in files:
-                # 写入到服务器本地
-                destination = open(os.path.join(path, file.name), 'wb+')
-                for chunk in file.chunks():
-                    destination.write(chunk)
-                destination.close()
-                File.objects.create(
-                    workorder_number = workorder_id,
-                    file_name = file.name,
-                    file_path = os.path.join(path, file.name)
-                )
+        #     for file in files:
+        #         # 写入到服务器本地
+        #         destination = open(os.path.join(path, file.name), 'wb+')
+        #         for chunk in file.chunks():
+        #             destination.write(chunk)
+        #         destination.close()
+        #         File.objects.create(
+        #             workorder_number = workorder_id,
+        #             file_name = file.name,
+        #             file_path = os.path.join(path, file.name)
+        #         )
+        workorder_num = form.cleaned_data["number"]
         form.save()
+        WorkOrder.objects.filter(number = workorder_num).update(creator = creator)
         return redirect(reverse("workorder_list2"))
     return render(request, "workorder_add2.html", {"form": form})
 
 
 def workorder_list(request):
+    # if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "贲集村管理员":
+    #     return redirect(reverse("no_permission"))
     data_dict = {}
     value = request.GET.get("q")
     if value:
@@ -117,11 +125,11 @@ def workorder_list(request):
     workorder = WorkOrder.objects.filter(village=1 ,**data_dict).all()
     typelist = []
     statuslist = []
-    lengh = range(len(workorder))
+
     for i in workorder:
         typelist.append(i.get_type_display())
         statuslist.append(i.get_status_display())
-        print(lengh, i)
+
 
     workorder_e = zip(workorder, typelist, statuslist)
     # print(typelist, statuslist,workorder_e,lengh)
@@ -129,6 +137,8 @@ def workorder_list(request):
 
 
 def workorder_list2(request):
+    # if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员":
+    #     return redirect(reverse("no_permission2"))
     data_dict = {}
     value = request.GET.get("q")
     if value:
@@ -206,12 +216,16 @@ def handle2(request, id):
 
 
 def record(request, id):
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "贲集村管理员":
+        return redirect(reverse("no_permission"))
     record = Record.objects.filter(number=id).all()
 
     return render(request, "workorder_record.html", {"record": record})
 
 
 def record2(request, id):
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员":
+        return redirect(reverse("no_permission2"))
     record = Record.objects.filter(number=id).all()
     return render(request, "workorder_record2.html", {"record": record})
 
@@ -236,17 +250,16 @@ class edit_form(forms.ModelForm):
 
 
 def edit(request, id):
-    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "贲集村管理员":
+    workorder = WorkOrder.objects.filter(id=id).first()
+    creator = workorder.creator
+    handler_id = str(request.session.get("id"))
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "贲集村管理员" and handler_id != creator:
         return redirect(reverse("no_permission"))
-
-    workorder_id = id
-    handler_id = request.session.get("id")
+    
     handler = UserInfo.objects.filter(id=handler_id).first()
     handler_name = request.session.get("name")
     record = ""
-    workorder = WorkOrder.objects.filter(id=workorder_id).first()
     workorder_dict = {}
-    workorder_number = workorder.number
 
     workorder_dict["type"] = workorder.get_type_display()
     workorder_dict["status"] = workorder.get_status_display()
@@ -307,25 +320,22 @@ def edit(request, id):
         return redirect(reverse("workorder_list"))
 
 def edit2(request, id):
-    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员":
-        return redirect(reverse("no_permission"))
+    workorder = WorkOrder.objects.filter(id=id).first()
+    creator = workorder.creator
+    handler_id = str(request.session.get("id"))
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员" and handler_id != creator:
+        return redirect(reverse("no_permission2"))
 
-    workorder_id = id
-    handler_id = request.session.get("id")
+
     handler = UserInfo.objects.filter(id=handler_id).first()
     handler_name = request.session.get("name")
     record = ""
-    workorder = WorkOrder.objects.filter(id=workorder_id).first()
     workorder_dict = {}
-    workorder_number = workorder.number
 
     workorder_dict["type"] = workorder.get_type_display()
     workorder_dict["status"] = workorder.get_status_display()
     workorder_dict["do_time"] = workorder.do_time
     workorder_dict["content"] = workorder.content
-
-    
-    workorder = WorkOrder.objects.filter(id=workorder_id).first()
     if request.method == "GET":
         form = edit_form(instance=workorder)
         fileform = file_form()
@@ -377,7 +387,10 @@ def edit2(request, id):
 
 
 def file_lis1(request, num):
-    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "贲集村管理员":
+    workorder = WorkOrder.objects.filter(number=num).first()
+    creator = workorder.creator
+    handler_id = str(request.session.get("id"))
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "贲集村管理员" and handler_id != creator:
         return redirect(reverse("no_permission"))
     workorder_num = num
     if request.method == "GET":
@@ -410,8 +423,11 @@ def file_lis1(request, num):
     return redirect("/workorder/"+str(workorder_num)+"/filelist")
 
 def file_lis2(request, num):
-    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员":
-        return redirect(reverse("no_permission"))
+    workorder = WorkOrder.objects.filter(number=num).first()
+    creator = workorder.creator
+    handler_id = str(request.session.get("id"))
+    if request.session.get("permission") != "超级管理员" and request.session.get("permission") != "蒋庄村管理员" and handler_id != creator:
+        return redirect(reverse("no_permission2"))
     
     workorder_num = num
     if request.method == "GET":
@@ -479,4 +495,38 @@ def file_delete2(request, id):
         
 
 
+def my_workorder(request):
+    data_dict = {}
+    value = request.GET.get("q")
+    if value:
+        data_dict["number__contains"] = value
+    id = request.session.get("id")
+    workorder = WorkOrder.objects.filter(creator = id, **data_dict, village=1).all()
+    typelist = []
+    statuslist = []
 
+    for i in workorder:
+        typelist.append(i.get_type_display())
+        statuslist.append(i.get_status_display())
+
+
+    workorder_e = zip(workorder, typelist, statuslist)
+    return render(request, "my_worklist.html",{"workorder":workorder_e})
+
+def my_workorder2(request):
+    data_dict = {}
+    value = request.GET.get("q")
+    if value:
+        data_dict["number__contains"] = value
+    id = request.session.get("id")
+    workorder = WorkOrder.objects.filter(creator = id, **data_dict, village=2).all()
+    typelist = []
+    statuslist = []
+
+    for i in workorder:
+        typelist.append(i.get_type_display())
+        statuslist.append(i.get_status_display())
+
+
+    workorder_e = zip(workorder, typelist, statuslist)
+    return render(request, "my_worklist2.html",{"workorder":workorder_e})

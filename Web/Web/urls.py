@@ -58,5 +58,7 @@ urlpatterns = [
     path("filedownload/<int:id>/",workorder.file_download),
     path("filedelete1/<int:id>", workorder.file_delete1),
     path("filedelete2/<int:id>", workorder.file_delete2),
+    path("workorder/mylist", workorder.my_workorder),
+    path("workorder2/mylist", workorder.my_workorder2),
 
 ]

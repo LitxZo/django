@@ -54,6 +54,7 @@ class WorkOrder(models.Model):
     content = RichTextField( verbose_name='工单内容')
     village = models.ForeignKey(
         verbose_name="所属村落", to="village", to_field="id", default=1, on_delete=models.CASCADE)
+    creator = models.CharField(max_length=43, verbose_name="创建者")
     
 class File(models.Model):
     workorder_number = models.CharField(max_length=10, verbose_name='工单号', null= False)
