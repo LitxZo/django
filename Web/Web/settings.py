@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+from private.private import privateInfo
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,7 +77,7 @@ WSGI_APPLICATION = "Web.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+mysql = privateInfo()
 DATABASES = {
     'default': {
         # 连接数据库类型 在末尾写入mysql即可
@@ -85,11 +87,11 @@ DATABASES = {
         # 端口
         'PORT': 3306,
         # 数据库名
-        'NAME': 'vmanage',
+        'NAME': mysql.dbname,
         # 用户
-        'USER': 'root',
+        'USER': mysql.user,
         # 密码
-        'PASSWORD': '123'
+        'PASSWORD': mysql.pas
     }
 }
 
