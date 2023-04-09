@@ -73,7 +73,7 @@ def workorder_create(request):
         form.save()
         print(creator)
         WorkOrder.objects.filter(number = workorder_num).update(creator = creator)
-        return redirect(reverse("workorder_list"))
+        return redirect(reverse("my_workorder"))
     
 
 
@@ -82,7 +82,7 @@ def workorder_create2(request):
     if request.method == "GET":
         form = workorder_form()
         # fileform = file_form()
-        return render(request, "workorder_add.html", {"form": form})
+        return render(request, "workorder_add2.html", {"form": form})
     form = workorder_form(data=request.POST)
     creator = request.session.get("id")
     # fileform = file_form(request.POST, request.FILES)
@@ -111,7 +111,7 @@ def workorder_create2(request):
         workorder_num = form.cleaned_data["number"]
         form.save()
         WorkOrder.objects.filter(number = workorder_num).update(creator = creator)
-        return redirect(reverse("workorder_list2"))
+        return redirect(reverse("my_workorder2"))
     return render(request, "workorder_add2.html", {"form": form})
 
 

@@ -89,7 +89,7 @@ DATABASES = {
         # 用户
         'USER': 'root',
         # 密码
-        'PASSWORD': 'shouwangpigu233'
+        'PASSWORD': '123'
     }
 }
 
@@ -193,4 +193,3 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #         'extraPlugins': ','.join(['codesnippet']),
 #     }
 # }
-

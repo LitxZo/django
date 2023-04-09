@@ -31,10 +31,11 @@ def index(request):
     print(address_latitude)
     print(address_data)
     print(address_url)
-    return render(request, 'index.html',{'address_longitude': json.dumps(address_longitude),
-                   'address_latitude': json.dumps(address_latitude),
-                   'address_data': json.dumps(address_data),
-                   'address_url': json.dumps(address_url)})
+    return render(request, 'index.html', {'address_longitude': json.dumps(address_longitude),
+                                          'address_latitude': json.dumps(address_latitude),
+                                          'address_data': json.dumps(address_data),
+                                          'address_url': json.dumps(address_url)})
+
 
 def index2(request):
     address_point = address_info.objects.all()
@@ -48,15 +49,15 @@ def index2(request):
         address_data.append(address_point[i].data)
         address_url.append(address_point[i].url)
 
-    
     return render(request, 'index2.html', {'address_longitude': json.dumps(address_longitude),
-                   'address_latitude': json.dumps(address_latitude),
-                   'address_data': json.dumps(address_data),
-                   'address_url': json.dumps(address_url)})
+                                           'address_latitude': json.dumps(address_latitude),
+                                           'address_data': json.dumps(address_data),
+                                           'address_url': json.dumps(address_url)})
 
 
 def test_meeting(request):
     return render(request, 'test_meeting.html')
+
 
 def gen_display(camera):
     """
@@ -73,12 +74,14 @@ def gen_display(camera):
                 yield (b'--frame\r\n'
                        b'Content-Type: image/jpeg\r\n\r\n' + frame.tobytes() + b'\r\n')
 
+
 def video(request):
     """
     视频流路由。将其放入img标记的src属性中。
     例如：<img src='https://ip:port/uri' >
     """
     # 视频流相机对象
-    camera = cv2.VideoCapture("/Users/litxzo/Desktop/video.mp4")
+    camera = cv2.VideoCapture(
+        "C:/SSD/Vs Code/django/Web/static/video/video.mp4")
     # 使用流传输传输视频流
     return StreamingHttpResponse(gen_display(camera), content_type='multipart/x-mixed-replace; boundary=frame')
