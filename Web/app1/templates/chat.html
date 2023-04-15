@@ -17,7 +17,7 @@
 </div>
 
 <div class="right-t-body">
-  <div class="layui-card" style="margin: 5px">
+  {% comment %} <div class="layui-card" style="margin: 5px">
     <div class="layui-card-body">
       <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
         <ul class="layui-tab-title">
@@ -27,13 +27,67 @@
           <div class="layui-tab-item layui-show">
             收信箱内容
             <div class="layui-card" style="margin: 5px">
-              {% for i in message_list %}
+              {% comment %} {% for i in message_list %}
               <div class="layui-card-header">寄件人：{{i.sender}}</div>
               <div class="layui-card-body">内容：{{i.message}}</div>
               {% endfor %}
+              <table class="layui-table" style="margin: 0">
+                <colgroup>
+                  <col />
+                  <col />
+                </colgroup>
+                <thead>
+                  <tr style="background-color: #00968817">
+                    <th>寄件人</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in message_list %}
+                  <tr>
+                    <td>{{ i.sender }}</td>
+                    <td>{{ i.message }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div> {% endcomment %}
+
+
+  <div class="layui-row">
+    <div class="layui-card layui-col-md12" style="margin: 20px">
+      <div class="layui-card-header">
+        消息列表
+        <div style="float: right">
+          <!--因为rbac的urls有上级urls所以 ，反向生成url的方法如下-->
+        </div>
+      </div>
+      <div class="layui-card-body" style="padding: 0">
+       <table class="layui-table" style="margin: 0">
+                <colgroup>
+                  <col />
+                  <col />
+                </colgroup>
+                <thead>
+                  <tr style="background-color: #00968817">
+                    <th>寄件人</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in message_list %}
+                  <tr>
+                    <td>{{ i.sender }}</td>
+                    <td>{{ i.message }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
       </div>
     </div>
   </div>

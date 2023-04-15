@@ -60,7 +60,7 @@ def login(request):
         
         
 
-        return init.index(request)
+        return init.index2(request)
 
 
 def logout(request):
