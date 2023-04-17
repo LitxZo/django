@@ -1,7 +1,13 @@
-
 <template>
-  <div class="distribution-container"> 
+  <div class="distribution-container">
     <div class="chart" id="chart_right2"></div>
+    <el-dialog title="弹窗" :visible.sync="dialogTableVisible">
+      <el-table :data="gridData">
+        <el-table-column property="date" label="日期" width="150"></el-table-column>
+        <el-table-column property="name" label="姓名" width="200"></el-table-column>
+        <el-table-column property="address" label="地址"></el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -10,8 +16,25 @@ export default {
   name: "distribution",
   data() {
     return {
-      
-    }
+      dialogTableVisible: false,
+      gridData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }],
+    };
   },
   mounted() {
     this.getEchartRight2();
@@ -127,7 +150,7 @@ export default {
               }
             }
           }]
-        },{
+        }, {
           stack: 'a',
           type: 'pie',
           radius: ['20%', '80%'],
@@ -152,8 +175,8 @@ export default {
               length: 15,
               length2: 50,
               lineStyle: {
-                type: 'dotted' 
-              } 
+                type: 'dotted'
+              }
             },
             emphasis: {
               show: true
@@ -162,13 +185,13 @@ export default {
           data: [{
             value: 35,
             name: '大街'
-          },{
+          }, {
             value: 28,
             name: '村头'
-          },{
+          }, {
             value: 23,
             name: '村东'
-          },{
+          }, {
             value: 18,
             name: '村西'
           },]
@@ -176,14 +199,27 @@ export default {
       }
 
       myChart.setOption(option, true);
+      myChart.on('click', (e) => {
+        this.dialogTableVisible = true;
+        console.log(e.data)
+      })
       window.addEventListener('resize', () => {
         myChart.resize();
       });
     },
+    // handleClose(done) {
+    //   this.$confirm('确认关闭？')
+    //       .then(_ => {
+    //         done();
+    //       })
+    //       .catch(_ => {
+    //       });
+    // }
   },
   beforeDestroy() {
-    
-  }
+
+  },
+
 };
 </script>
 
