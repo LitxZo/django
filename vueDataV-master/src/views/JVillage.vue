@@ -1,10 +1,10 @@
 <template>
   <div class="brand-container">
-  	<div class="wrap">
+    <div class="wrap">
       <header>
         <div class="weather">
           <img :src="imgSrc">
-          <span class="tem">{{ weatcherData.tem }}°C</span> 
+          <span class="tem">{{ weatcherData.tem }}°C</span>
           <span class="wea">{{ weatcherData.wea }}</span>
         </div>
         <h2>蒋庄村智慧平台系统</h2>
@@ -14,13 +14,100 @@
             <span>{{ week }}</span>
             <span>{{ date }}</span>
           </span>
+
+          <el-tooltip class="item" effect="dark" content="更多功能" placement="top">
+            <div @click="dialogTableVisible=true" type="primary" style="margin-left: 16px; cursor:pointer;">
+              <svg t="1681888859373" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                   xmlns="http://www.w3.org/2000/svg" p-id="2613" width="32" height="32">
+                <path
+                    d="M267.388928 514.13504c0 58.960896-47.794176 106.753024-106.754048 106.753024S53.880832 573.095936 53.880832 514.13504s47.793152-106.761216 106.753024-106.761216S267.388928 455.175168 267.388928 514.13504z"
+                    fill="#3eabc6" p-id="2614"></path>
+                <path
+                    d="M619.495424 514.13504c0 58.960896-47.794176 106.753024-106.754048 106.753024s-106.753024-47.793152-106.753024-106.753024 47.793152-106.761216 106.753024-106.761216S619.495424 455.175168 619.495424 514.13504z"
+                    fill="#3eabc6" p-id="2615"></path>
+                <path
+                    d="M971.602944 514.13504c0 58.960896-47.794176 106.753024-106.754048 106.753024s-106.753024-47.793152-106.753024-106.753024S805.888 407.374848 864.848896 407.374848 971.602944 455.175168 971.602944 514.13504z"
+                    fill="#3eabc6" p-id="2616"></path>
+              </svg>
+            </div>
+          </el-tooltip>
+          <el-dialog title="更多功能" :visible.sync="dialogTableVisible" close-on-click-modal="false">
+<!--            <el-tabs v-model="activeName" @tab-click="handleClick">-->
+            <el-tabs v-model="activeName">
+              <el-tab-pane label="功能1" name="first"><div
+                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 600px;">
+                <div style="background-color: #42b983; display: flex; justify-content: center; align-items: center;">1
+                </div>
+                <div style="background-color: #0d5aa7; display: flex; justify-content: center; align-items: center;">2
+                </div>
+                <div style="background-color: #FFB951; display: flex; justify-content: center; align-items: center;">3
+                </div>
+                <div style="background-color: #a463f2; display: flex; justify-content: center; align-items: center;">4
+                </div>
+                <div style="background-color: #A60000; display: flex; justify-content: center; align-items: center;">5
+                </div>
+                <div style="background-color: #81b10c; display: flex; justify-content: center; align-items: center;">6
+                </div>
+                <div style="background-color: #f0e0ff; display: flex; justify-content: center; align-items: center;">7
+                </div>
+                <div style="background-color: #7095d5; display: flex; justify-content: center; align-items: center;">8
+                </div>
+                <div style="background-color: #94B3E4; display: flex; justify-content: center; align-items: center;">9
+                </div>
+              </div></el-tab-pane>
+              <el-tab-pane label="功能2" name="second"><div
+                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 600px;">
+                <div style="background-color: #42b983; display: flex; justify-content: center; align-items: center;">1
+                </div>
+                <div style="background-color: #0d5aa7; display: flex; justify-content: center; align-items: center;">2
+                </div>
+                <div style="background-color: #FFB951; display: flex; justify-content: center; align-items: center;">3
+                </div>
+                <div style="background-color: #a463f2; display: flex; justify-content: center; align-items: center;">4
+                </div>
+                <div style="background-color: #A60000; display: flex; justify-content: center; align-items: center;">5
+                </div>
+                <div style="background-color: #81b10c; display: flex; justify-content: center; align-items: center;">6
+                </div>
+                <div style="background-color: #f0e0ff; display: flex; justify-content: center; align-items: center;">7
+                </div>
+                <div style="background-color: #7095d5; display: flex; justify-content: center; align-items: center;">8
+                </div>
+                <div style="background-color: #94B3E4; display: flex; justify-content: center; align-items: center;">9
+                </div>
+              </div></el-tab-pane>
+              <el-tab-pane label="功能3" name="third"><div
+                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 600px;">
+                <div style="background-color: #42b983; display: flex; justify-content: center; align-items: center;">1
+                </div>
+                <div style="background-color: #0d5aa7; display: flex; justify-content: center; align-items: center;">2
+                </div>
+                <div style="background-color: #FFB951; display: flex; justify-content: center; align-items: center;">3
+                </div>
+                <div style="background-color: #a463f2; display: flex; justify-content: center; align-items: center;">4
+                </div>
+                <div style="background-color: #A60000; display: flex; justify-content: center; align-items: center;">5
+                </div>
+                <div style="background-color: #81b10c; display: flex; justify-content: center; align-items: center;">6
+                </div>
+                <div style="background-color: #f0e0ff; display: flex; justify-content: center; align-items: center;">7
+                </div>
+                <div style="background-color: #7095d5; display: flex; justify-content: center; align-items: center;">8
+                </div>
+                <div style="background-color: #94B3E4; display: flex; justify-content: center; align-items: center;">9
+                </div>
+              </div></el-tab-pane>
+            </el-tabs>
+
+          </el-dialog>
+
           <el-tooltip class="item" effect="dark" content="管理系统导航栏" placement="top">
             <div @click="drawer = true" type="primary" style="margin-left: 16px; cursor:pointer;">
               <svg t="1672142918768" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                xmlns="http://www.w3.org/2000/svg" p-id="4020" width="32" height="32">
+                   xmlns="http://www.w3.org/2000/svg" p-id="4020" width="32" height="32">
                 <path
-                  d="M416 554.666667c29.44 0 53.333333 23.893333 53.333333 53.333333V768c0 29.44-23.893333 53.333333-53.333333 53.333333H256c-29.44 0-53.333333-23.893333-53.333333-53.333333v-160c0-29.44 23.893333-53.333333 53.333333-53.333333zM768 554.666667c29.44 0 53.333333 23.893333 53.333333 53.333333V768c0 29.44-23.893333 53.333333-53.333333 53.333333h-160c-29.44 0-53.333333-23.893333-53.333333-53.333333v-160c0-29.44 23.893333-53.333333 53.333333-53.333333z m-352 42.666666H256a10.666667 10.666667 0 0 0-10.666667 10.666667V768c0 5.888 4.778667 10.666667 10.666667 10.666667h160A10.666667 10.666667 0 0 0 426.666667 768v-160a10.666667 10.666667 0 0 0-10.666667-10.666667zM768 597.333333h-160a10.666667 10.666667 0 0 0-10.666667 10.666667V768c0 5.888 4.778667 10.666667 10.666667 10.666667H768a10.666667 10.666667 0 0 0 10.666667-10.666667v-160A10.666667 10.666667 0 0 0 768 597.333333zM416 202.666667c29.44 0 53.333333 23.893333 53.333333 53.333333v160c0 29.44-23.893333 53.333333-53.333333 53.333333H256c-29.44 0-53.333333-23.893333-53.333333-53.333333V256c0-29.44 23.893333-53.333333 53.333333-53.333333z m272 0a133.333333 133.333333 0 1 1 0 266.666666 133.333333 133.333333 0 0 1 0-266.666666z m-272 42.666666H256a10.666667 10.666667 0 0 0-10.666667 10.666667v160c0 5.888 4.778667 10.666667 10.666667 10.666667h160a10.666667 10.666667 0 0 0 10.666667-10.666667V256a10.666667 10.666667 0 0 0-10.666667-10.666667z m272 0a90.666667 90.666667 0 1 0 0 181.333334 90.666667 90.666667 0 0 0 0-181.333334z"
-                  fill="#3eabc6" p-id="4021"></path>
+                    d="M416 554.666667c29.44 0 53.333333 23.893333 53.333333 53.333333V768c0 29.44-23.893333 53.333333-53.333333 53.333333H256c-29.44 0-53.333333-23.893333-53.333333-53.333333v-160c0-29.44 23.893333-53.333333 53.333333-53.333333zM768 554.666667c29.44 0 53.333333 23.893333 53.333333 53.333333V768c0 29.44-23.893333 53.333333-53.333333 53.333333h-160c-29.44 0-53.333333-23.893333-53.333333-53.333333v-160c0-29.44 23.893333-53.333333 53.333333-53.333333z m-352 42.666666H256a10.666667 10.666667 0 0 0-10.666667 10.666667V768c0 5.888 4.778667 10.666667 10.666667 10.666667h160A10.666667 10.666667 0 0 0 426.666667 768v-160a10.666667 10.666667 0 0 0-10.666667-10.666667zM768 597.333333h-160a10.666667 10.666667 0 0 0-10.666667 10.666667V768c0 5.888 4.778667 10.666667 10.666667 10.666667H768a10.666667 10.666667 0 0 0 10.666667-10.666667v-160A10.666667 10.666667 0 0 0 768 597.333333zM416 202.666667c29.44 0 53.333333 23.893333 53.333333 53.333333v160c0 29.44-23.893333 53.333333-53.333333 53.333333H256c-29.44 0-53.333333-23.893333-53.333333-53.333333V256c0-29.44 23.893333-53.333333 53.333333-53.333333z m272 0a133.333333 133.333333 0 1 1 0 266.666666 133.333333 133.333333 0 0 1 0-266.666666z m-272 42.666666H256a10.666667 10.666667 0 0 0-10.666667 10.666667v160c0 5.888 4.778667 10.666667 10.666667 10.666667h160a10.666667 10.666667 0 0 0 10.666667-10.666667V256a10.666667 10.666667 0 0 0-10.666667-10.666667z m272 0a90.666667 90.666667 0 1 0 0 181.333334 90.666667 90.666667 0 0 0 0-181.333334z"
+                    fill="#3eabc6" p-id="4021"></path>
               </svg>
             </div>
           </el-tooltip>
@@ -29,17 +116,17 @@
               <el-menu default-active="2" class="el-menu-vertical-demo" background-color="#0a1649" text-color="#7ef0ff">
                 <el-menu-item index="1" @click="gohome">
                   <i class="el-icon-menu"></i>
-                  <span slot="title" >首页</span>
+                  <span slot="title">首页</span>
                 </el-menu-item>
                 <el-menu-item index="2" @click="goJvillage">
                   <i class="el-icon-menu"></i>
-                  <span slot="title" >蒋庄村</span>
+                  <span slot="title">蒋庄村</span>
                 </el-menu-item>
                 <el-menu-item index="3" @click="goBvillage">
                   <i class="el-icon-menu"></i>
                   <span slot="title">贲集村</span>
                 </el-menu-item>
-                
+
                 <el-menu-item index="4" @click="goHoutai">
                   <i class="el-icon-menu"></i>
                   <span slot="title">后台管理系统</span>
@@ -54,17 +141,17 @@
         <div class="item left">
           <div class="panel">
             <h2>群众问题反馈</h2>
-            <business />
+            <business/>
             <div class="panel-footer"></div>
           </div>
           <div class="panel">
             <h2>人口信息</h2>
-            <talent />
+            <talent/>
             <div class="panel-footer"></div>
           </div>
           <div class="panel">
             <h2>人均收入</h2>
-            <income />
+            <income/>
             <div class="panel-footer"></div>
           </div>
         </div>
@@ -94,38 +181,40 @@
           </div>
           <div class="map">
             <video muted autoplay="autoplay" loop="loop" height="400px" width="100%">
-            <source src="../../src/assets/img/4.mp4" type="video/mp4" />
-          </video>
-          <div class="go">
-            <video muted autoplay="autoplay" loop="loop" height="400px" width="100%">
-            <source src="../../src/assets/img/5.mp4" type="video/mp4" />
-          </video>
+              <source src="../../src/assets/img/4.mp4" type="video/mp4"/>
+            </video>
+            <div class="go">
+              <video muted autoplay="autoplay" loop="loop" height="400px" width="100%">
+                <source src="../../src/assets/img/5.mp4" type="video/mp4"/>
+              </video>
+            </div>
           </div>
-          </div>
-         
+
         </div>
 
         <div class="item right">
           <div class="panel">
             <h2>乡村特色</h2>
-            <img src="https://ts1.cn.mm.bing.net/th/id/R-C.688c8dc2e78e9946b78f046409a2e984?rik=oXi9zteleBvkpw&riu=http%3a%2f%2fpic.baike.soso.com%2fugc%2fbaikepic2%2f12233%2fori-20160808192818-969431015.jpg%2f300&ehk=AxEpY1oaqvmtp8N2%2fOhQgmcZcY28PUJLUBKiVLXDKW4%3d&risl=&pid=ImgRaw&r=0"  height="80%"/>
+            <img
+                src="https://ts1.cn.mm.bing.net/th/id/R-C.688c8dc2e78e9946b78f046409a2e984?rik=oXi9zteleBvkpw&riu=http%3a%2f%2fpic.baike.soso.com%2fugc%2fbaikepic2%2f12233%2fori-20160808192818-969431015.jpg%2f300&ehk=AxEpY1oaqvmtp8N2%2fOhQgmcZcY28PUJLUBKiVLXDKW4%3d&risl=&pid=ImgRaw&r=0"
+                height="80%"/>
             <div class="panel-footer"></div>
           </div>
           <div class="panel">
             <h2>人口分布</h2>
-            <distribution />
+            <distribution/>
             <div class="panel-footer"></div>
           </div>
           <div class="panel">
             <h2>发展历程</h2>
-            <history />
+            <history/>
             <div class="panel-footer"></div>
           </div>
         </div>
       </section>
-  
+
     </div>
-    
+
   </div>
 </template>
 
@@ -133,13 +222,14 @@
 import '@/assets/js/flexible'
 import '@/assets/js/china'
 import countTo from 'vue-count-to'
+
 export default {
   name: 'Brand',
   components: {
     countTo
   },
   data() {
-  	return {
+    return {
       nowTime: '',
       week: '',
       date: '',
@@ -148,12 +238,28 @@ export default {
       weatcherData: {},
       startVal: 0,
       geoCoordMap: {},
-      
-  	}
+      gridData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }],
+      dialogTableVisible: false,
+      activeName: 'second',
+    }
   },
-  computed: {
-  	
-  },
+  computed: {},
   created() {
   },
   mounted() {
@@ -221,25 +327,25 @@ export default {
         console.log(err)
       })
     },
-    gohome(){
+    gohome() {
       this.$router.push({
         path: '/'
-       })
+      })
     },
-    goJvillage(){
+    goJvillage() {
       this.$router.push({
         path: '/jvillage'
-       })
+      })
     },
-    goBvillage(){
+    goBvillage() {
       this.$router.push({
         path: '/bvillage'
-       })
+      })
     },
-    goHoutai(){
-      window.location.href='http://127.0.0.1:8000/index';
+    goHoutai() {
+      window.location.href = 'http://127.0.0.1:8000/index';
     },
-    
+
 
   },
   beforeDestroy() {
@@ -254,15 +360,18 @@ export default {
   width: 100%;
   height: 100%;
   background: #000;
+
   .wrap {
     background: url(../assets/img/brand/bg.jpg) no-repeat #000;
     background-size: cover;
     line-height: 1.15;
+
     header {
       position: relative;
       height: 1rem;
       background: url(../assets/img/brand/head_bg.png) no-repeat top center;
       background-size: 100% 100%;
+
       h2 {
         color: #7ef0ff;
         font-size: 0.475rem;
@@ -270,39 +379,48 @@ export default {
         line-height: 0.75rem;
         letter-spacing: 1px;
       }
+
       .weather {
         position: absolute;
         left: 1.375rem;
         top: 0.35rem;
         font-size: 0.25rem;
         color: rgba(126, 240, 255, .7);
+
         img {
           width: .45rem;
         }
+
         span {
           display: inline-block;
         }
+
         .tem {
           margin: 0 .1rem 0 .2rem;
         }
       }
+
       .showTime {
         position: absolute;
         right: 1.375rem;
         top: 0.5rem;
         color: rgba(126, 240, 255, .7);
         display: flex;
+
         .time {
           font-size: .28rem;
           margin-right: .18rem;
         }
+
         .date {
           span {
             display: block;
+
             &:nth-child(1) {
               font-size: .12rem;
               text-align: right;
             }
+
             &:nth-child(2) {
               font-size: .14rem;
             }
@@ -310,26 +428,32 @@ export default {
         }
       }
     }
-    
+
     .mainbox {
       min-width: 1024px;
       max-width: 1920px;
       padding: 0.125rem 0.125rem 0;
       display: flex;
+
       .item {
         flex: 3;
+
         &.center {
           flex: 5;
           margin: 0 0.125rem 0.1rem;
           overflow: hidden;
+
           .resume {
             background: rgba(101, 132, 226, 0.1);
             padding: 0.1875rem;
+
             .resume-hd {
               position: relative;
               border: 1px solid rgba(25, 186, 139, 0.17);
+
               ul {
                 display: flex;
+
                 %li-line {
                   content: "";
                   position: absolute;
@@ -338,6 +462,7 @@ export default {
                   background: rgba(255, 255, 255, 0.2);
                   top: 25%;
                 }
+
                 li {
                   position: relative;
                   flex: 1;
@@ -349,11 +474,13 @@ export default {
                   padding: 0.05rem 0;
                   font-family: 'DIGITALDREAMFAT';
                   font-weight: bold;
+
                   &:nth-child(2) {
                     &:after {
                       @extend %li-line;
                       right: 0;
                     }
+
                     &:before {
                       @extend %li-line;
                       left: 0;
@@ -361,6 +488,7 @@ export default {
                   }
                 }
               }
+
               &:before {
                 content: "";
                 position: absolute;
@@ -371,6 +499,7 @@ export default {
                 top: 0;
                 left: 0;
               }
+
               &:after {
                 content: "";
                 position: absolute;
@@ -382,9 +511,11 @@ export default {
                 bottom: 0;
               }
             }
+
             .resume-bd {
               ul {
                 display: flex;
+
                 li {
                   flex: 1;
                   height: 0.5rem;
@@ -398,7 +529,7 @@ export default {
             }
           }
         }
-        
+
         %map-style {
           position: absolute;
           top: 50%;
@@ -410,9 +541,11 @@ export default {
           background-size: 100% 100%;
           opacity: 0.3;
         }
+
         .map {
           position: relative;
           height: 10.125rem;
+
           .chart {
             position: absolute;
             top: 0;
@@ -421,9 +554,11 @@ export default {
             height: 10.125rem;
             width: 100%;
           }
+
           .map1 {
             @extend %map-style;
           }
+
           .map2 {
             @extend %map-style;
             width: 8.0375rem;
@@ -434,6 +569,7 @@ export default {
             animation: rotate 15s linear infinite;
             z-index: 2;
           }
+
           .map3 {
             @extend %map-style;
             width: 7.075rem;
@@ -443,6 +579,7 @@ export default {
             animation: rotate1 10s linear infinite;
           }
         }
+
         .panel {
           position: relative;
           height: 3.875rem;
@@ -450,6 +587,7 @@ export default {
           background: rgba(255, 255, 255, 0.04) url(../assets/img/brand/line.png);
           padding: 0 0.1875rem 0;
           margin-bottom: 0.1875rem;
+
           &:before {
             position: absolute;
             top: 0;
@@ -460,6 +598,7 @@ export default {
             border-top: 2px solid #02a6b5;
             border-left: 2px solid #02a6b5;
           }
+
           &:after {
             position: absolute;
             top: 0;
@@ -470,11 +609,13 @@ export default {
             border-top: 2px solid #02a6b5;
             border-right: 2px solid #02a6b5;
           }
+
           .panel-footer {
             position: absolute;
             left: 0;
             bottom: 0;
             width: 100%;
+
             &:before {
               position: absolute;
               bottom: 0;
@@ -485,6 +626,7 @@ export default {
               border-bottom: 2px solid #02a6b5;
               border-left: 2px solid #02a6b5;
             }
+
             &:after {
               position: absolute;
               bottom: 0;
@@ -496,6 +638,7 @@ export default {
               border-right: 2px solid #02a6b5;
             }
           }
+
           h2 {
             height: 0.6rem;
             line-height: 0.6rem;
@@ -503,12 +646,14 @@ export default {
             color: #fff;
             font-size: 0.225rem;
             font-weight: 400;
+
             a {
               margin: 0 0.1875rem;
               color: #fff;
               text-decoration: none;
             }
           }
+
           .chart {
             height: 3rem;
           }
@@ -517,6 +662,7 @@ export default {
     }
   }
 }
+
 @-webkit-keyframes rotate {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -525,6 +671,7 @@ export default {
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
 @keyframes rotate {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -533,6 +680,7 @@ export default {
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
 @-webkit-keyframes rotate1 {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -541,6 +689,7 @@ export default {
     transform: translate(-50%, -50%) rotate(-360deg);
   }
 }
+
 @keyframes rotate1 {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -549,14 +698,16 @@ export default {
     transform: translate(-50%, -50%) rotate(-360deg);
   }
 }
+
 @media screen and (max-width: 1024px) {
   html {
     font-size: 42px !important;
   }
 }
+
 @media screen and (min-width: 1920) {
   html {
     font-size: 80px !important;
   }
-}	
+}
 </style>
