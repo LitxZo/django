@@ -31,11 +31,11 @@
               </svg>
             </div>
           </el-tooltip>
-          <el-dialog title="更多功能" :visible.sync="dialogTableVisible" close-on-click-modal="false">
+          <el-dialog width="80%" title="更多功能" :visible.sync="dialogTableVisible" close-on-click-modal="false">
 <!--            <el-tabs v-model="activeName" @tab-click="handleClick">-->
             <el-tabs v-model="activeName">
               <el-tab-pane label="功能1" name="first"><div
-                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 600px;">
+                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 800px;">
                 <div style="background-color: #42b983; display: flex; justify-content: center; align-items: center;">1
                 </div>
                 <div style="background-color: #0d5aa7; display: flex; justify-content: center; align-items: center;">2
@@ -56,7 +56,7 @@
                 </div>
               </div></el-tab-pane>
               <el-tab-pane label="功能2" name="second"><div
-                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 600px;">
+                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 800px;">
                 <div style="background-color: #42b983; display: flex; justify-content: center; align-items: center;">1
                 </div>
                 <div style="background-color: #0d5aa7; display: flex; justify-content: center; align-items: center;">2
@@ -77,7 +77,7 @@
                 </div>
               </div></el-tab-pane>
               <el-tab-pane label="功能3" name="third"><div
-                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 600px;">
+                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 800px;">
                 <div style="background-color: #42b983; display: flex; justify-content: center; align-items: center;">1
                 </div>
                 <div style="background-color: #0d5aa7; display: flex; justify-content: center; align-items: center;">2
