@@ -56,7 +56,7 @@
                 </div> -->
               </div></el-tab-pane>
               <el-tab-pane label="功能2" name="second"><div
-                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 400px;">
+                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(2,50%);grid-gap:5px; width: 100%; height: 400px;">
                 <div style="background-color: #42b983; display: flex; justify-content: center; align-items: center;">1
                 </div>
                 <div style="background-color: #0d5aa7; display: flex; justify-content: center; align-items: center;">2
@@ -69,15 +69,15 @@
                 </div>
                 <div style="background-color: #81b10c; display: flex; justify-content: center; align-items: center;">6
                 </div>
-                <div style="background-color: #f0e0ff; display: flex; justify-content: center; align-items: center;">7
+                <!-- <div style="background-color: #f0e0ff; display: flex; justify-content: center; align-items: center;">7
                 </div>
                 <div style="background-color: #7095d5; display: flex; justify-content: center; align-items: center;">8
                 </div>
                 <div style="background-color: #94B3E4; display: flex; justify-content: center; align-items: center;">9
-                </div>
+                </div> -->
               </div></el-tab-pane>
               <el-tab-pane label="功能3" name="third"><div
-                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(3,33%);grid-gap:5px; width: 100%; height: 400px;">
+                  style="display: grid; grid-template-columns:repeat(3,33%);grid-template-rows:repeat(2,50%);grid-gap:5px; width: 100%; height: 400px;">
                 <div style="background-color: #42b983; display: flex; justify-content: center; align-items: center;">1
                 </div>
                 <div style="background-color: #0d5aa7; display: flex; justify-content: center; align-items: center;">2
@@ -90,12 +90,12 @@
                 </div>
                 <div style="background-color: #81b10c; display: flex; justify-content: center; align-items: center;">6
                 </div>
-                <div style="background-color: #f0e0ff; display: flex; justify-content: center; align-items: center;">7
+                <!-- <div style="background-color: #f0e0ff; display: flex; justify-content: center; align-items: center;">7
                 </div>
                 <div style="background-color: #7095d5; display: flex; justify-content: center; align-items: center;">8
                 </div>
                 <div style="background-color: #94B3E4; display: flex; justify-content: center; align-items: center;">9
-                </div>
+                </div> -->
               </div></el-tab-pane>
             </el-tabs>
 

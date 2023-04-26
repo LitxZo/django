@@ -1,8 +1,8 @@
 <template>
   <div class="distribution-container">
     <div class="chart" id="chart_right2"></div>
-    <el-dialog title="弹窗" :visible.sync="dialogTableVisible">
-      <el-table :data="gridData">
+    <el-dialog title="弹窗" :visible.sync="dialogTableVisible" >
+      <el-table :data="gridData" >
         <el-table-column property="date" label="日期" width="150"></el-table-column>
         <el-table-column property="name" label="姓名" width="200"></el-table-column>
         <el-table-column property="address" label="地址"></el-table-column>
