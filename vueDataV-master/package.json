@@ -4,8 +4,8 @@
   "private": true,
   "author": "JackChen <278910933@qq.com>",
   "scripts": {
-    "serve": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
-    "build": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build", 
+    "serve": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "element-ui": "^2.15.13",
     "sass": "^1.60.0",
     "vue": "^2.6.11",
+    "vue-jsonp": "^2.0.0",
     "vue-resource": "^1.5.3",
     "vue-router": "^3.1.6",
     "vue-seamless-scroll": "^1.1.21",

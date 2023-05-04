@@ -16,7 +16,8 @@ Including another URLconf
 
 from app1.views import chat, init, permission, users, workorder
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+import app1
 
 urlpatterns = [
     path("start/", init.start),
@@ -60,5 +61,7 @@ urlpatterns = [
     path("filedelete2/<int:id>", workorder.file_delete2),
     path("workorder/mylist", workorder.my_workorder, name="my_workorder"),
     path("workorder2/mylist", workorder.my_workorder2, name="my_workorder2"),
+
+    path("vue/", include('app1.urls'))
 
 ]

@@ -1,7 +1,8 @@
 
 <template>
   <div class="business-container"> 
-    <div class="chart" id="chart_left1"></div>   
+    <div class="chart" id="chart_left1" ></div> 
+    <button @click="get_feedback">获取</button>
   </div>
 </template>
 
@@ -162,6 +163,20 @@ export default {
       window.addEventListener('resize', () => {
         myChart.resize();
       });
+    },
+
+    get_feedback(){
+      console.log("点击了")
+      this.$http.get('http://127.0.0.1:8001/vue/get_feedback').then((response)=> {
+        var res = JSON.parse(response.bodyText)
+        console.log(res)
+        if (res.err_num == 0) {
+          this.bookList = res['list']
+        } else {
+          this.$message.error('查询数据失败')
+          console.log(res['msg'])
+        }
+      })
     },
   },
   beforeDestroy() {
