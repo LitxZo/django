@@ -3,7 +3,7 @@
 <template>
   <div class="talent-container"> 
     <div class="chart" id="chart_left2"></div> 
-    <el-dialog title="弹窗" :visible.sync="dialogTableVisible">
+    <el-dialog title="人员信息" :visible.sync="dialogTableVisible">
       <el-table :data="gridData">
         <el-table-column property="date" label="日期" width="150"></el-table-column>
         <el-table-column property="name" label="姓名" width="200"></el-table-column>
@@ -21,20 +21,20 @@ export default {
       dialogTableVisible: false,
       gridData: [{
         date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        name: '张三',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
       }, {
         date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        name: '李四',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
       }, {
         date: '2016-05-01',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
       }, {
         date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        name: '王雷',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
       }],
     }
   },
