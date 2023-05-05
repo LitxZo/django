@@ -3,7 +3,7 @@
 <template>
   <div class="talent-container"> 
     <div class="chart" id="chart_left2"></div> 
-    <el-dialog title="人员信息" :visible.sync="dialogTableVisible">
+    <el-dialog title="人口信息" :visible.sync="dialogTableVisible">
       <el-table :data="gridData">
         <el-table-column property="date" label="日期" width="150"></el-table-column>
         <el-table-column property="name" label="姓名" width="200"></el-table-column>

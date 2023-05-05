@@ -1,7 +1,14 @@
 
 <template>
   <div class="business-container"> 
-    <div class="chart" id="chart_left1" ></div> 
+    <div class="chart" id="chart_left1" ></div>
+    <el-dialog title="群众问题反馈信息" :visible.sync="dialogTableVisible" >
+      <el-table :data="gridData" >
+        <el-table-column property="date" label="日期" width="150"></el-table-column>
+        <el-table-column property="name" label="姓名" width="200"></el-table-column>
+        <el-table-column property="address" label="地址"></el-table-column>
+      </el-table>
+    </el-dialog>
     <button @click="get_feedback">获取</button>
   </div>
 </template>
@@ -11,7 +18,24 @@ export default {
   name: "business",
   data() {
     return {
-      
+      dialogTableVisible: false,
+      gridData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }],
     }
   },
   mounted() {
@@ -160,6 +184,10 @@ export default {
 
       // 把配置给实例对象
       myChart.setOption(option, true);
+      myChart.on('click', (e) => {
+        this.dialogTableVisible = true;
+        console.log(e.data)
+      })
       window.addEventListener('resize', () => {
         myChart.resize();
       });

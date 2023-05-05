@@ -1,9 +1,16 @@
 
 <template>
   <div class="history-container">
+    <el-dialog title="人员信息" :visible.sync="dialogTableVisible" >
+      <el-table :data="gridData" >
+        <el-table-column property="date" label="日期" width="150"></el-table-column>
+        <el-table-column property="name" label="姓名" width="200"></el-table-column>
+        <el-table-column property="address" label="地址"></el-table-column>
+      </el-table>
+    </el-dialog>
     <div class="tabs"> 
       <ul class="tab-tilte">
-        <li v-for="(itemTit, index) in tabTitle" :key="itemTit" @mouseover="handleMouseOver(index)" @mouseout="handleMouseOut(index)" :class="{active: cur == index}">
+        <li v-for="(itemTit, index) in tabTitle" @click="onClick(index)" :key="itemTit" @mouseover="handleMouseOver(index)" @mouseout="handleMouseOut(index)" :class="{active: cur == index}">
           {{ itemTit }}
         </li>
       </ul>
@@ -26,6 +33,24 @@ export default {
   name: "history",
   data() {
     return {
+      dialogTableVisible: false,
+      gridData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }],
       timer: null,
       tabTitle: ['2015', '2016', '2017', '2018', '2019', '2020'],
       tabCon: [
@@ -84,7 +109,10 @@ export default {
     },
     handleMouseOut(index) {
       this.getTimer();
-    }
+    },
+    onClick(index) {
+      this.dialogTableVisible = true;
+    },
   },
   beforeDestroy() {
     clearInterval(this.timer);

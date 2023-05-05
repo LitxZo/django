@@ -2,7 +2,14 @@
 
 <template>
   <div class="income-container"> 
-    <div class="chart" id="chart_left3"></div>  
+    <div class="chart" id="chart_left3"></div>
+    <el-dialog title="人均收入信息" :visible.sync="dialogTableVisible" >
+      <el-table :data="gridData" >
+        <el-table-column property="date" label="日期" width="150"></el-table-column>
+        <el-table-column property="name" label="姓名" width="200"></el-table-column>
+        <el-table-column property="address" label="地址"></el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -11,7 +18,24 @@ export default {
   name: "income",
   data() {
     return {
-      
+      dialogTableVisible: false,
+      gridData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      }],
     }
   },
   mounted() {
@@ -161,6 +185,10 @@ export default {
       }
 
       myChart.setOption(option, true);
+      myChart.on('click', (e) => {
+        this.dialogTableVisible = true;
+        console.log(e.data)
+      })
       window.addEventListener('resize', () => {
         myChart.resize();
       })
