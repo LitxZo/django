@@ -3,13 +3,13 @@
 <template>
   <div class="income-container"> 
     <div class="chart" id="chart_left3"></div>
-    <el-dialog title="人均收入信息" :visible.sync="dialogTableVisible" >
+    <!-- <el-dialog title="人均收入信息" :visible.sync="dialogTableVisible" >
       <el-table :data="gridData" >
         <el-table-column property="date" label="日期" width="150"></el-table-column>
         <el-table-column property="name" label="姓名" width="200"></el-table-column>
         <el-table-column property="address" label="地址"></el-table-column>
       </el-table>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -19,23 +19,23 @@ export default {
   data() {
     return {
       dialogTableVisible: false,
-      gridData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
-      }],
+      // gridData: [{
+      //   date: '2016-05-02',
+      //   name: '王小虎',
+      //   address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      // }, {
+      //   date: '2016-05-04',
+      //   name: '王小虎',
+      //   address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      // }, {
+      //   date: '2016-05-01',
+      //   name: '王小虎',
+      //   address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      // }, {
+      //   date: '2016-05-03',
+      //   name: '王小虎',
+      //   address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
+      // }],
     }
   },
   mounted() {
@@ -75,7 +75,7 @@ export default {
             },
           },
           formatter: (value) => {
-            return value[0].name + '年营业收入：<br>' + value[0].value + '万元'; 
+            return value[0].name + '年人均收入：<br>' + value[0].value + '元'; 
           }
         },
         grid: {

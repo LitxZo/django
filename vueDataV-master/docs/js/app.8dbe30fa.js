@@ -5237,7 +5237,7 @@
                     },
                   },
                   formatter: function(t) {
-                    return t[0].name + "年营业收入：<br>" + t[0].value + "万元";
+                    return t[0].name + "年人均收入：<br>" + t[0].value + "元";
                   },
                 },
                 grid: {

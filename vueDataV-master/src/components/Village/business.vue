@@ -4,12 +4,12 @@
     <div class="chart" id="chart_left1" ></div>
     <el-dialog title="群众问题反馈信息" :visible.sync="dialogTableVisible" >
       <el-table :data="gridData" >
-        <el-table-column property="date" label="日期" width="150"></el-table-column>
-        <el-table-column property="name" label="姓名" width="200"></el-table-column>
-        <el-table-column property="address" label="地址"></el-table-column>
+        <el-table-column property="title" label="标题" width="150"></el-table-column>
+        <el-table-column property="date" label="处理时间" width="150"></el-table-column>
+        <el-table-column property="name" label="申请人" width="200"></el-table-column>
+        <el-table-column property="ishandle" label="是否处理"></el-table-column>
       </el-table>
     </el-dialog>
-    <button @click="get_feedback">获取</button>
   </div>
 </template>
 
@@ -19,27 +19,31 @@ export default {
   data() {
     return {
       dialogTableVisible: false,
-      gridData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '江苏省南通市海安市李堡镇蒋庄村十一组七号'
-      }],
+      gridData: [
+            {
+                "title": "群众反馈4",
+                "name": "王磊",
+                "date": "2022-1-1",
+                "ishandle": "是"
+            },
+            {
+                "title": "群众反馈5",
+                "name": "王磊",
+                "date": "2022-1-1",
+                "ishandle": "是"
+            },
+            {
+                "title": "群众反馈6",
+                "name": "王磊",
+                "date": "2022-1-1",
+                "ishandle": "是"
+            },
+      ],
     }
   },
   mounted() {
     this.getEchartLeft1();
+    this.get_feedback();
   },
   methods: {
     getEchartLeft1() {
@@ -199,7 +203,7 @@ export default {
         var res = JSON.parse(response.bodyText)
         console.log(res)
         if (res.err_num == 0) {
-          this.bookList = res['list']
+          this.gridData = res['list']
         } else {
           this.$message.error('查询数据失败')
           console.log(res['msg'])
