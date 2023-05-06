@@ -1,7 +1,7 @@
 
 <template>
   <div class="history-container">
-    <el-dialog title="发展历程" :visible.sync="dialogTableVisible" >
+    <el-dialog title="发展历程" :visible.sync="dialogTableVisible" id="historys">
       <!-- <el-table :data="gridData" >
         <el-table-column property="context" label="发展历程" width="200"></el-table-column>
 
@@ -11,7 +11,9 @@
         <div class="TRS_Editor"><p>5月20日，海安李堡镇蒋庄村九久乐家庭农场连栋大棚内，洋溢着“小满”节气的丰盈氛围：早熟的油桃挂满枝头，火龙果花红得娇艳，夏黑葡萄绿得发紫。</p>
         <p>在大棚里照应游客的陈十俊一边忙碌着，一边告诉记者：“自从村里引进能人兴办家庭农场，我们村10多名低收入户来农场打工有了相对固定的劳务收入。其他不能直接参加劳动的张广兴等40多个低收入户的收入也都来源于村内招引企业的直接补助和分红。”</p>
         <p>“去年我们村所有低收入户都摘掉了‘贫困帽’，不仅如此，村营收入也从过去的‘倒挂’一跃年收入82万元。”村会计储开琴高兴地说。</p>
-
+        <div style="text-align: center;">
+          <img src="https://wm.jschina.com.cn/9658/202005/W020200522518994273166.jpg" style="margin: auto;">
+        </div>
         <p>蒋庄村是离李堡集镇区最边远的村，全村共有38个村民小组，1710户，5010人，是个典型的纯农业村。过去一不靠集镇，二不靠交通要道。随着沿海经济大开发和长三角经济开发战略实施，海安通沿海的328国道穿村而过。“一条国道就是黄金大道，假如我当时抓不住这个机遇，蒋庄村还会穷下去。”村党总支部书记杭海峰说。</p>
         <p>2013年，40岁出头的杭海峰被镇党委任命为蒋庄村党总支部书记。“接手时，村民收入不高，村里的规费都难收齐。不怪村民不听话，是确实穷啊！”杭海峰说。</p>
         <p>穷则思变，财富等不来。杭海峰从328国道这条黄金大道开始谋划，统一村内一班人思想：“调整规划，兴办蒋庄村工业园。”这一思路得到了村全体党员的支持。</p>
@@ -196,5 +198,16 @@ export default {
       }
     }
   }
+}
+</style>
+<style>
+
+#historys {
+    background-image: url(../../assets/img/R-C.jpg);
+    background-size: 100%  100%;
+  }
+#content {
+  font-size: medium;
+  line-height: 22px;
 }
 </style>
