@@ -17,10 +17,12 @@ export default {
       let option = {
         xAxis: {
           type: 'category',
+          name: '月份',
           data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         },
         yAxis: {
-          type: 'value'
+          type: 'value',
+          name: '处理件数'
         },
         series: [
           {
