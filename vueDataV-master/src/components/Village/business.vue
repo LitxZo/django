@@ -3,19 +3,17 @@
   <div class="business-container"> 
     <div class="chart" id="chart_left1" ></div>
     <el-dialog title="群众问题反馈信息" :visible.sync="dialogTableVisible" >
-      <el-table :data="gridData" >
-        <el-table-column property="title" label="标题" width="150"></el-table-column>
-        <el-table-column property="date" label="处理时间" width="150"></el-table-column>
-        <el-table-column property="name" label="申请人" width="200"></el-table-column>
-        <el-table-column property="ishandle" label="是否处理"></el-table-column>
-      </el-table>
+      <Empty />
     </el-dialog>
   </div>
 </template>
 
 <script>
+import Empty from "@/components/Village/empty.vue";
+
 export default {
   name: "business",
+  components: {Empty},
   data() {
     return {
       dialogTableVisible: false,

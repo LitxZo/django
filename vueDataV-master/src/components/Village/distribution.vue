@@ -2,18 +2,17 @@
   <div class="distribution-container">
     <div class="chart" id="chart_right2"></div>
     <el-dialog title="人员信息" :visible.sync="dialogTableVisible" >
-      <el-table :data="gridData" >
-        <el-table-column property="date" label="日期" width="150"></el-table-column>
-        <el-table-column property="name" label="姓名" width="200"></el-table-column>
-        <el-table-column property="address" label="地址"></el-table-column>
-      </el-table>
+      <Empty />
     </el-dialog>
   </div>
 </template>
 
 <script>
+import Empty from "@/components/Village/empty.vue";
+
 export default {
   name: "distribution",
+  components: {Empty},
   data() {
     return {
       dialogTableVisible: false,
@@ -197,7 +196,6 @@ export default {
           },]
         }]
       }
-
       myChart.setOption(option, true);
       myChart.on('click', (e) => {
         this.dialogTableVisible = true;
@@ -207,14 +205,6 @@ export default {
         myChart.resize();
       });
     },
-    // handleClose(done) {
-    //   this.$confirm('确认关闭？')
-    //       .then(_ => {
-    //         done();
-    //       })
-    //       .catch(_ => {
-    //       });
-    // }
   },
   beforeDestroy() {
 
