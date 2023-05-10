@@ -17,14 +17,14 @@ export default {
       let option = {
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: ['村西', '大街', '村东', '村头']
         },
         yAxis: {
           type: 'value'
         },
         series: [
           {
-            data: [120, 200, 150, 80, 70, 110, 130],
+            data: [120, 200, 150, 80],
             type: 'bar',
             showBackground: true,
             backgroundStyle: {

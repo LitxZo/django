@@ -14,7 +14,7 @@
 
 <script >
 import Empty from "@/components/Village/empty.vue";
-import Empty1 from "@/components/Village/empty1.vue";
+import Empty1 from "@/components/Village/empty2.vue";
 
 export default {
   name: "distribution",
